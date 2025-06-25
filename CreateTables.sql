@@ -1,3 +1,5 @@
+CREATE SCHEMA test;
+USE test;
 -- Crear tablas
 CREATE TABLE GYM (
     id_gym INT AUTO_INCREMENT PRIMARY KEY,
