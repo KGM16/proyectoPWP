@@ -1,0 +1,109 @@
+Tablas y Relaciones
+GYM
+
+id_gym (PK)
+total_ingresos
+total_usuarios
+total_empleados
+Sede
+
+id_sede (PK)
+id_gym (FK)
+gerente
+cantidad_empleados
+ingresos_mes
+usuarios_activos
+clases_activas
+estado (activo/inactivo)
+Administrador
+
+cedula (PK)
+puesto
+activo (boolean)
+telefono
+correo_trabajo
+correo_personal
+es_admin (boolean)
+Empleado
+
+cedula (PK, FK)
+id_sede (FK)
+Cliente
+
+id_cliente (PK)
+nombre
+apellido1
+apellido2
+telefono
+tipo_membresia (FK)
+estado (activo/inactivo)
+fecha_registro
+foto_url
+claseDePrueba (boolean)
+Membresia
+
+id_membresia (PK)
+nombre
+caracteristicas
+beneficios (FK)
+Beneficio
+
+id_beneficio (PK)
+nombre
+Clase
+
+id_clase (PK)
+id_sede (FK)
+cedula_entrenador (FK)
+fecha
+hora
+PlanNutricional
+
+id_plan (PK)
+id_cliente (FK)
+alimentos
+calorias
+tipo (desayuno/almuerzo/cena/merienda1/merienda2)
+Progreso
+
+id_progreso (PK)
+id_cliente (FK)
+fecha
+peso
+tiempo_activo
+peso_que_levanta_inicial
+peso_que_levanta_actual
+Rutina
+
+id_rutina (PK)
+nombre
+Ejercicio
+
+id_ejercicio (PK)
+nombre
+grupo_muscular
+video_url
+tiempo_descanso
+RutinaEjercicio
+
+id_rutina (FK)
+id_ejercicio (FK)
+ClienteRutina
+
+id_cliente (FK)
+id_rutina (FK)
+ClienteClase
+
+id_cliente (FK)
+id_clase (FK)
+Descuento
+
+id_descuento (PK)
+nombre
+porcentaje_descuento
+activo (boolean)
+codigo
+SedeDescuento
+
+id_sede (FK)
+id_descuento (FK)
