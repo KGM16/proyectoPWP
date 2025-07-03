@@ -1,0 +1,56 @@
+static/
+├── css/
+│   ├── styles.css
+│   ├── auth.css
+│   ├── usuario.css
+│   ├── entrenador.css
+│   └── admin.css
+├── js/
+│   ├── main.js
+│   ├── auth.js
+│   ├── usuario.js
+│   ├── entrenador.js
+│   └── admin.js
+└── images/
+    ├── logo.png
+    ├── background.jpg
+    └── icons/
+        ├── user-icon.png
+        ├── trainer-icon.png
+        └── admin-icon.png
+
+
+templates/
+├── fragments/
+│   ├── header.html
+│   ├── footer.html
+│   ├── navbar.html
+│   ├── authNavbar.html
+│   ├── usuarioNavbar.html
+│   ├── entrenadorNavbar.html
+│   └── adminNavbar.html
+├── auth/
+│   ├── login.html
+│   └── loginEmpleados.html
+├── usuario/
+│   ├── mainPage.html
+│   ├── perfilUsuario.html
+│   ├── progresoUsuario.html
+│   ├── planNutricionUsuario.html
+│   ├── rutinasUsuario.html
+│   ├── clasesUsuario.html
+│   ├── claseGratis.html
+│   ├── promosUsuario.html
+│   ├── planesUsuario.html
+│   └── sedesUsuario.html
+├── entrenador/
+│   └── perfilEntrenador.html
+└── admin/
+    ├── panelAdministrativo.html
+    ├── administrarUsuarios.html
+    ├── administrarEmpleados.html
+    ├── administrarClases.html
+    ├── administrarPromos.html
+    ├── administrarPlanes.html
+    ├── administrarSedes.html
+    └── planNutricionAdmin.html
