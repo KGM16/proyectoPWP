@@ -1,15 +1,162 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantilla :: head}">
+    <title>FideGYM</title>
+    <meta charset="UTF-8"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">FitGym Admin</div>
+            <ul class="nav-links">
+                <li><a href="admin-panel.html">Panel</a></li>
+                <li><a href="admin-users.html">Usuarios</a></li>
+                <li><a href="admin-employees.html">Empleados</a></li>
+                <li><a href="admin-reports.html">Reportes</a></li>
+            </ul>
+            <a href="index.html" class="nav-cta">Salir</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Administrar Usuarios</h1>
+            <p class="page-subtitle">Gestiona los perfiles de usuarios, membresías y estados de cuenta</p>
+        </div>
+
+        <div class="controls-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar usuarios...">
+                <select class="filter-select">
+                    <option>Todos los estados</option>
+                    <option>Activos</option>
+                    <option>Inactivos</option>
+                    <option>Suspendidos</option>
+                </select>
+                <select class="filter-select">
+                    <option>Todas las membresías</option>
+                    <option>Básica</option>
+                    <option>Premium</option>
+                    <option>VIP</option>
+                </select>
+            </div>
+            <button class="add-button">+ Agregar Usuario</button>
+        </div>
+
+        <div class="users-table">
+            <div class="table-header">
+                <div>Usuario</div>
+                <div>Información Personal</div>
+                <div>Membresía</div>
+                <div>Estado</div>
+                <div>Registro</div>
+                <div>Acciones</div>
+            </div>
+
+            <div class="table-row">
+                <div class="user-info">
+                    <div class="user-avatar">MG</div>
+                </div>
+                <div class="user-details">
+                    <h4>María González</h4>
+                    <p>maria.gonzalez@email.com</p>
+                    <p>+506 8888-1234</p>
+                </div>
+                <div>
+                    <h4>Premium</h4>
+                    <p>Vence: 15/07/2025</p>
+                </div>
+                <div>
+                    <span class="status-badge status-active">Activo</span>
+                </div>
+                <div>
+                    <p>15/01/2024</p>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn btn-edit">✏️</button>
+                    <button class="action-btn btn-delete">🗑️</button>
+                </div>
+            </div>
+
+            <div class="table-row">
+                <div class="user-info">
+                    <div class="user-avatar">CR</div>
+                </div>
+                <div class="user-details">
+                    <h4>Carlos Ramírez</h4>
+                    <p>carlos.ramirez@email.com</p>
+                    <p>+506 8888-5678</p>
+                </div>
+                <div>
+                    <h4>Básica</h4>
+                    <p>Vence: 28/06/2025</p>
+                </div>
+                <div>
+                    <span class="status-badge status-active">Activo</span>
+                </div>
+                <div>
+                    <p>03/02/2024</p>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn btn-edit">✏️</button>
+                    <button class="action-btn btn-delete">🗑️</button>
+                </div>
+            </div>
+
+            <div class="table-row">
+                <div class="user-info">
+                    <div class="user-avatar">AM</div>
+                </div>
+                <div class="user-details">
+                    <h4>Ana Morales</h4>
+                    <p>ana.morales@email.com</p>
+                    <p>+506 8888-9012</p>
+                </div>
+                <div>
+                    <h4>VIP</h4>
+                    <p>Vence: 10/08/2025</p>
+                </div>
+                <div>
+                    <span class="status-badge status-active">Activo</span>
+                </div>
+                <div>
+                    <p>22/11/2023</p>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn btn-edit">✏️</button>
+                    <button class="action-btn btn-delete">🗑️</button>
+                </div>
+            </div>
+
+            <div class="table-row">
+                <div class="user-info">
+                    <div class="user-avatar">JS</div>
+                </div>
+                <div class="user-details">
+                    <h4>José Solano</h4>
+                    <p>jose.solano@email.com</p>
+                    <p>+506 8888-3456</p>
+                </div>
+                <div>
+                    <h4>Premium</h4>
+                    <p>Venció: 05/06/2025</p>
+                </div>
+                <div>
+                    <span class="status-badge status-inactive">Inactivo</span>
+                </div>
+                <div>
+                    <p>18/05/2024</p>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn btn-edit">✏️</button>
+                    <button class="action-btn btn-delete">🗑️</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

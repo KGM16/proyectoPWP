@@ -1,15 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// src/main/java/com/proyectoPWP/domain/empleado/Empleado.java
 package com.proyectoPWP.domain.empleado;
 
-import com.proyectoPWP.domain.usuario.Usuario;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- *
- * @author kgomezm
- */
-public class Empleado extends Usuario {
+@MappedSuperclass
+@Getter @Setter
+public abstract class Empleado {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long idEmpleado;
     
+    protected String nombre;
+    protected String apellido;
+    protected String email;
+    protected String telefono;
+    
+    public Empleado() {
+    }
 }

@@ -1,15 +1,70 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>FideGYM</title>
+        <meta charset="UTF-8"/>
     </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">FitGym Admin</div>
+            <ul class="nav-links">
+                <li><a href="admin-panel.html">Panel</a></li>
+                <li><a href="admin-locations.html">Sedes</a></li>
+                <li><a href="admin-users.html">Usuarios</a></li>
+                <li><a href="admin-reports.html">Reportes</a></li>
+            </ul>
+            <a href="index.html" class="nav-cta">Salir</a>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Administrar Sedes</h1>
+            <p class="page-subtitle">Gestiona la información de todas las sedes de FitGym</p>
+        </div>
+        <div class="controls-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar sedes...">
+                <select class="filter-select">
+                    <option>Todas las ciudades</option>
+                    <option>San José</option>
+                    <option>Heredia</option>
+                    <option>Alajuela</option>
+                </select>
+            </div>
+            <button class="add-button">+ Agregar Sede</button>
+        </div>
+        <div class="locations-table">
+            <div class="table-header">
+                <div>Sede</div>
+                <div>Ciudad</div>
+                <div>Teléfono</div>
+                <div>Capacidad</div>
+                <div>Horario</div>
+                <div>Acciones</div>
+            </div>
+            <div class="table-row">
+                <div class="location-info">
+                    <div class="location-avatar">SJ</div>
+                    <div class="location-details">
+                        <h4>San José Centro</h4>
+                        <p>Avenida Central, entre calles 1 y 3</p>
+                    </div>
+                </div>
+                <div>San José</div>
+                <div>+506 2222-1111</div>
+                <div>250 personas</div>
+                <div>5:00 AM - 10:00 PM</div>
+                <div class="action-buttons">
+                    <button class="action-btn btn-view">Ver</button>
+                    <button class="action-btn btn-edit">Editar</button>
+                    <button class="action-btn btn-delete">Eliminar</button>
+                </div>
+            </div>
+            <!-- Más filas de sedes aquí -->
+        </div>
+    </div>
+</body>
 </html>

@@ -1,15 +1,145 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>FideGYM</title>
+        <meta charset="UTF-8"/>
     </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">FitGym Admin</div>
+            <ul class="nav-links">
+                <li><a href="admin-panel.html">Panel</a></li>
+                <li><a href="admin-plans.html">Planes</a></li>
+                <li><a href="admin-users.html">Usuarios</a></li>
+                <li><a href="admin-reports.html">Reportes</a></li>
+            </ul>
+            <a href="index.html" class="nav-cta">Salir</a>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Nuestros Planes de Membresía</h1>
+            <p class="page-subtitle">Elige el plan que mejor se adapte a tus necesidades y comienza tu viaje hacia una vida más saludable con FitGym.</p>
+        </div>
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-name">Básico</div>
+                <div class="plan-price">₡25,000 <span>/mes</span></div>
+                <ul class="plan-features">
+                    <li>✓ Acceso a todas las sedes</li>
+                    <li>✓ Uso de equipos de cardio y pesas</li>
+                    <li>✓ Acceso a vestuarios y duchas</li>
+                    <li>✗ Clases grupales ilimitadas</li>
+                    <li>✗ Entrenador personal</li>
+                    <li>✗ Plan nutricional personalizado</li>
+                    <li>✗ Acceso a sauna y spa</li>
+                </ul>
+                <button class="plan-button">Más información</button>
+            </div>
+            <div class="plan-card popular">
+                <div class="popular-badge">Más popular</div>
+                <div class="plan-name">Premium</div>
+                <div class="plan-price">₡45,000 <span>/mes</span></div>
+                <ul class="plan-features">
+                    <li>✓ Acceso a todas las sedes</li>
+                    <li>✓ Uso de equipos de cardio y pesas</li>
+                    <li>✓ Acceso a vestuarios y duchas</li>
+                    <li>✓ Clases grupales ilimitadas</li>
+                    <li>✓ 2 sesiones con entrenador personal</li>
+                    <li>✓ Plan nutricional básico</li>
+                    <li>✗ Acceso a sauna y spa</li>
+                </ul>
+                <button class="plan-button select">Seleccionar plan</button>
+            </div>
+            <div class="plan-card">
+                <div class="plan-name">VIP</div>
+                <div class="plan-price">₡75,000 <span>/mes</span></div>
+                <ul class="plan-features">
+                    <li>✓ Acceso a todas las sedes</li>
+                    <li>✓ Uso de equipos de cardio y pesas</li>
+                    <li>✓ Acceso a vestuarios y duchas</li>
+                    <li>✓ Clases grupales ilimitadas</li>
+                    <li>✓ 4 sesiones con entrenador personal</li>
+                    <li>✓ Plan nutricional personalizado</li>
+                    <li>✓ Acceso a sauna y spa</li>
+                    <li>✓ Acceso a clases especiales</li>
+                    <li>✓ Evaluación física mensual</li>
+                </ul>
+                <button class="plan-button current">Tu plan actual</button>
+            </div>
+        </div>
+        <div class="comparison-container">
+            <h2>Comparación de Planes</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Básico</th>
+                        <th>Premium</th>
+                        <th>VIP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Acceso a todas las sedes</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Uso de equipos de cardio y pesas</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Acceso a vestuarios y duchas</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Clases grupales ilimitadas</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Sesiones con entrenador personal</td>
+                        <td>✗</td>
+                        <td>2</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>Plan nutricional</td>
+                        <td>✗</td>
+                        <td>Básico</td>
+                        <td>Personalizado</td>
+                    </tr>
+                    <tr>
+                        <td>Acceso a sauna y spa</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Acceso a clases especiales</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Evaluación física mensual</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
 </html>

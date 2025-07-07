@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>FideGYM</title>
+        <meta charset="UTF-8"/>
+    </head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">FitGym Admin</div>
+            <ul class="nav-links">
+                <li><a href="admin-panel.html">Panel</a></li>
+                <li><a href="admin-promotions.html">Promociones</a></li>
+                <li><a href="admin-users.html">Usuarios</a></li>
+                <li><a href="admin-reports.html">Reportes</a></li>
+            </ul>
+            <a href="index.html" class="nav-cta">Salir</a>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Administrar Promociones</h1>
+            <p class="page-subtitle">Gestiona las promociones y descuentos disponibles para los clientes</p>
+        </div>
+        <div class="controls-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar promociones...">
+                <select class="filter-select">
+                    <option>Todos los estados</option>
+                    <option>Activas</option>
+                    <option>Inactivas</option>
+                </select>
+                <select class="filter-select">
+                    <option>Todos los tipos</option>
+                    <option>Descuentos</option>
+                    <option>Ofertas</option>
+                </select>
+            </div>
+            <button class="add-button">+ Agregar Promoción</button>
+        </div>
+        <div class="promotions-grid">
+            <div class="promotion-card">
+                <div class="promotion-image">
+                    <div class="promotion-discount">20% OFF</div>
+                </div>
+                <div class="promotion-info">
+                    <h4>Descuento Verano</h4>
+                    <p>Obtené un 20% de descuento en tu membresía anual durante el verano.</p>
+                    <div class="promotion-details">
+                        <span>Válido hasta: 31/12/2025</span>
+                        <span>Código: VERANO20</span>
+                    </div>
+                    <div class="promotion-status">
+                        <span class="status-badge active">Activa</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn btn-edit">Editar</button>
+                        <button class="action-btn btn-delete">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Más tarjetas de promociones aquí -->
+        </div>
+    </div>
+</body>
+</html>

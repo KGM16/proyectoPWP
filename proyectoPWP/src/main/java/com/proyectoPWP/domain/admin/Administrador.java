@@ -1,15 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// src/main/java/com/proyectoPWP/domain/admin/Administrador.java
 package com.proyectoPWP.domain.admin;
 
 import com.proyectoPWP.domain.empleado.Empleado;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- *
- * @author kgomezm
- */
-public class Administrador extends Empleado{
+@Entity
+@Table(name = "administradores")
+@Getter @Setter
+public class Administrador extends Empleado {
+    private String departamento;
     
+    public Administrador() {
+        super();
+    }
 }
