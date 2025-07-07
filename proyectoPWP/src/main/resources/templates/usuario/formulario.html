@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:form="http://www.thymeleaf.org"
+      th:replace="~{layout/plantilla :: plantilla(~{::title}, ~{::section})}">
+    <head>
+        <title th:text="${usuario.idUsuario != null} ? #{titulo.editarUsuario} : #{titulo.agregarUsuario}">Formulario de Usuario</title>
+    </head>
+    <body>
+        <section class="container mt-4">
+            <!-- Mensajes de éxito/error -->
+            <div th:if="${todoOK != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${todoOK}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
+            <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0" th:text="${usuario.idUsuario != null} ? #{titulo.editarUsuario} : #{titulo.agregarUsuario}">
+                        Formulario de Usuario
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/usuario/guardar}" method="POST" th:object="${usuario}" id="usuarioForm">
+                        <input type="hidden" th:field="*{idUsuario}">
+                        
+                        <!-- Nombre y Apellido -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label" th:text="#{label.nombre}">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" 
+                                       th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''"
+                                       required>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" 
+                                     th:each="error : ${#fields.errors('nombre')}" th:text="${error}">
+                                    Error en el nombre
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="apellido" class="form-label" th:text="#{label.apellido}">Apellido</label>
+                                <input type="text" class="form-control" id="apellido" th:field="*{apellido}"
+                                       th:classappend="${#fields.hasErrors('apellido')} ? 'is-invalid' : ''"
+                                       required>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('apellido')}" 
+                                     th:each="error : ${#fields.errors('apellido')}" th:text="${error}">
+                                    Error en el apellido
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Email y Teléfono -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="email" class="form-label" th:text="#{label.email}">Email</label>
+                                <input type="email" class="form-control" id="email" th:field="*{email}"
+                                       th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                                       required>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" 
+                                     th:each="error : ${#fields.errors('email')}" th:text="${error}">
+                                    Error en el email
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="telefono" class="form-label" th:text="#{label.telefono}">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono" th:field="*{telefono}"
+                                       th:classappend="${#fields.hasErrors('telefono')} ? 'is-invalid' : ''"
+                                       placeholder="Ej: 123456789">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" 
+                                     th:each="error : ${#fields.errors('telefono')}" th:text="${error}">
+                                    Error en el teléfono
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Fecha de Nacimiento y Género -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="fechaNacimiento" class="form-label" th:text="#{label.fechaNacimiento}">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fechaNacimiento" th:field="*{fechaNacimiento}"
+                                       th:classappend="${#fields.hasErrors('fechaNacimiento')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('fechaNacimiento')}" 
+                                     th:each="error : ${#fields.errors('fechaNacimiento')}" th:text="${error}">
+                                    Error en la fecha de nacimiento
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="genero" class="form-label" th:text="#{label.genero}">Género</label>
+                                <select class="form-select" id="genero" th:field="*{genero}"
+                                        th:classappend="${#fields.hasErrors('genero')} ? 'is-invalid' : ''"
+                                        required>
+                                    <option value="" disabled>Seleccione...</option>
+                                    <option th:each="genero : ${T(com.proyectoPWP.domain.usuario.Genero).values()}"
+                                            th:value="${genero}"
+                                            th:text="#{'genero.' + genero}">
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('genero')}" 
+                                     th:each="error : ${#fields.errors('genero')}" th:text="${error}">
+                                    Error en el género
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Contraseña y Objetivo -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="contrasena" class="form-label" th:text="#{label.contrasena}">Contraseña</label>
+                                <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}"
+                                       th:classappend="${#fields.hasErrors('contrasena')} ? 'is-invalid' : ''"
+                                       th:required="!${usuario.idUsuario}"
+                                       autocomplete="new-password">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('contrasena')}" 
+                                     th:each="error : ${#fields.errors('contrasena')}" th:text="${error}">
+                                    Error en la contraseña
+                                </div>
+                                <small class="form-text text-muted" th:if="${usuario.idUsuario}">
+                                    Dejar en blanco para mantener la contraseña actual
+                                </small>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="objetivoEntrenamiento" class="form-label" th:text="#{label.objetivoEntrenamiento}">Objetivo de Entrenamiento</label>
+                                <input type="text" class="form-control" id="objetivoEntrenamiento" 
+                                       th:field="*{objetivoEntrenamiento}"
+                                       th:classappend="${#fields.hasErrors('objetivoEntrenamiento')} ? 'is-invalid' : ''"
+                                       placeholder="Ej: Perder peso, Ganar masa muscular, etc.">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('objetivoEntrenamiento')}" 
+                                     th:each="error : ${#fields.errors('objetivoEntrenamiento')}" th:text="${error}">
+                                    Error en el objetivo de entrenamiento
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Checkboxes -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="newsletter" th:field="*{newsletter}">
+                                    <label class="form-check-label" for="newsletter" th:text="#{label.newsletter}">
+                                        Recibir newsletter
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="activo" th:field="*{activo}">
+                                    <label class="form-check-label" for="activo" th:text="#{label.activo}">
+                                        Usuario activo
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Botones -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end border-top pt-3">
+                            <a th:href="@{/usuario/listado}" class="btn btn-outline-secondary me-md-2" th:text="#{boton.cancelar}">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary" th:text="#{boton.guardar}">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Script para manejar la validación del formulario -->
+        <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Validación del lado del cliente
+            const forms = document.querySelectorAll('.needs-validation');
+            
+            // Validación al enviar el formulario
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    
+                    form.classList.add('was-validated');
+                }, false);
+            });
+            
+            // Validación en tiempo real para campos modificados
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    } else {
+                        this.classList.remove('is-valid');
+                        this.classList.add('is-invalid');
+                    }
+                });
+            });
+        });
+        </script>
+    </body>
+</html>

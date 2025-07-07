@@ -1,15 +1,62 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <footer class="footer mt-auto py-4 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>FitGym</h5>
+                    <p>Tu mejor opción para mantenerte en forma y saludable. Ofrecemos instalaciones de primera y entrenadores profesionales.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/inicio" class="text-white text-decoration-none">Inicio</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Clases</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Entrenadores</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Precios</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Horario</h5>
+                    <ul class="list-unstyled">
+                        <li>Lunes - Viernes: 6:00 AM - 10:00 PM</li>
+                        <li>Sábado: 8:00 AM - 8:00 PM</li>
+                        <li>Domingo: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contacto</h5>
+                    <address>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> Calle Principal #123, Ciudad</p>
+                        <p><i class="fas fa-phone me-2"></i> +1 234 567 890</p>
+                        <p><i class="fas fa-envelope me-2"></i> info@fitgym.com</p>
+                    </address>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 FitGym. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Términos y Condiciones</a>
+                    <a href="#" class="text-white text-decoration-none">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
 </html>

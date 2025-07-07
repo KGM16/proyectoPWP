@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/admin-layout.html :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>Dashboard</title>
+    <th:block th:with="tituloPagina='Dashboard', pageSubtitle='Resumen general del sistema'"></th:block>
+</head>
+<body>
+    <th:block th:fragment="main">
+        <!-- Stats Cards -->
+        <div class="classes-table">
+            <!-- Users Card -->
+            <div class="class-card">
+                <div class="class-image">
+                    <i class="fas fa-users" style="font-size: 3rem; color: #ff6b35;"></i>
+                </div>
+                <div class="class-info">
+                    <h3 class="class-title">Usuarios</h3>
+                    <div class="class-details">
+                        <span>Total: 1,234</span>
+                        <span>+12% mes anterior</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%; background: linear-gradient(45deg, #ff6b35, #f7931e);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employees Card -->
+            <div class="class-card">
+                <div class="class-image">
+                    <i class="fas fa-user-tie" style="font-size: 3rem; color: #3b82f6;"></i>
+                </div>
+                <div class="class-info">
+                    <h3 class="class-title">Empleados</h3>
+                    <div class="class-details">
+                        <span>Total: 45</span>
+                        <span>+2 este mes</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%; background: linear-gradient(45deg, #3b82f6, #1d4ed8);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Locations Card -->
+            <div class="class-card">
+                <div class="class-image">
+                    <i class="fas fa-map-marker-alt" style="font-size: 3rem; color: #10b981;"></i>
+                </div>
+                <div class="class-info">
+                    <h3 class="class-title">Sedes</h3>
+                    <div class="class-details">
+                        <span>Total: 3</span>
+                        <span>Todas activas</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%; background: linear-gradient(45deg, #10b981, #059669);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Income Card -->
+            <div class="class-card">
+                <div class="class-image">
+                    <i class="fas fa-dollar-sign" style="font-size: 3rem; color: #8b5cf6;"></i>
+                </div>
+                <div class="class-info">
+                    <h3 class="class-title">Ingresos</h3>
+                    <div class="class-details">
+                        <span>Este mes: $12,345</span>
+                        <span>+8% mes anterior</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%; background: linear-gradient(45deg, #8b5cf6, #7c3aed);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="routine-container" style="margin-top: 2rem;">
+            <div class="routine-tag">
+                <i class="fas fa-history"></i> Actividad Reciente
+            </div>
+            <h3>Últimas actividades</h3>
+            
+            <div class="exercise-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-1">usuario1@example.com</h4>
+                        <p class="exercise-detail mb-0">Inició sesión en el sistema</p>
+                    </div>
+                    <div class="text-end">
+                        <div class="status-badge active">Completado</div>
+                        <div class="text-muted small">Hace 5 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-1">admin@example.com</h4>
+                        <p class="exercise-detail mb-0">Actualizó el plan Premium</p>
+                    </div>
+                    <div class="text-end">
+                        <div class="status-badge active">Completado</div>
+                        <div class="text-muted small">Hace 1 hora</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="mb-1">entrenador1@example.com</h4>
+                        <p class="exercise-detail mb-0">Agregó nueva rutina</p>
+                    </div>
+                    <div class="text-end">
+                        <div class="status-badge active">Completado</div>
+                        <div class="text-muted small">Hace 3 horas</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end mt-3">
+                <a href="#" class="text-decoration-none" style="color: #ff6b35;">
+                    Ver todas las actividades <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>

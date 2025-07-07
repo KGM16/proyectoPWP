@@ -1,15 +1,143 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <!-- Barra lateral para administradores -->
+    <div th:fragment="sidebar" class="sidebar-sticky pt-3">
+        <ul class="nav flex-column" sec:authorize="hasRole('ADMIN')">
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Administración</span>
+            </h6>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI == '/admin' ? 'active' : ''}" 
+                   th:href="@{/admin}">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Panel de Control
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/usuarios') ? 'active' : ''}" 
+                   th:href="@{/admin/usuarios}">
+                    <i class="fas fa-users me-2"></i>
+                    Usuarios
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/empleados') ? 'active' : ''}" 
+                   th:href="@{/admin/empleados}">
+                    <i class="fas fa-user-tie me-2"></i>
+                    Empleados
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/planes') ? 'active' : ''}" 
+                   th:href="@{/admin/planes}">
+                    <i class="fas fa-list-alt me-2"></i>
+                    Planes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/sedes') ? 'active' : ''}" 
+                   th:href="@{/admin/sedes}">
+                    <i class="fas fa-building me-2"></i>
+                    Sedes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/rutinas') ? 'active' : ''}" 
+                   th:href="@{/admin/rutinas}">
+                    <i class="fas fa-dumbbell me-2"></i>
+                    Rutinas
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/ejercicios') ? 'active' : ''}" 
+                   th:href="@{/admin/ejercicios}">
+                    <i class="fas fa-running me-2"></i>
+                    Ejercicios
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/ofertas') ? 'active' : ''}" 
+                   th:href="@{/admin/ofertas}">
+                    <i class="fas fa-tags me-2"></i>
+                    Ofertas
+                </a>
+            </li>
+        </ul>
+
+        <!-- Barra lateral para entrenadores -->
+        <ul class="nav flex-column" sec:authorize="hasRole('ENTRENADOR')">
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Entrenador</span>
+            </h6>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${#httpServletRequest.requestURI == '/entrenador' ? 'active' : ''}" 
+                   th:href="@{/entrenador}">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Panel de Control
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-calendar-alt me-2"></i>
+                    Mi Horario
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-users me-2"></i>
+                    Mis Clientes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-tasks me-2"></i>
+                    Rutinas
+                </a>
+            </li>
+        </ul>
+
+        <!-- Barra lateral para usuarios regulares -->
+        <ul class="nav flex-column" sec:authorize="hasRole('USUARIO')">
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Mi Cuenta</span>
+            </h6>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-user me-2"></i>
+                    Mi Perfil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-calendar-check me-2"></i>
+                    Mis Clases
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-dumbbell me-2"></i>
+                    Mi Rutina
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Mi Progreso
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-credit-card me-2"></i>
+                    Mi Membresía
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
 </html>

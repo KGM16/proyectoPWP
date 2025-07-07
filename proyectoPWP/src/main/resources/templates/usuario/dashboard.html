@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout/usuario-layout.html :: layout(~{::title}, ~{::#content})}">
+<head>
+    <title>Mi Panel</title>
+    <th:block th:with="tituloPagina='Mi Panel', pageSubtitle='Bienvenido a tu espacio personal'"></th:block>
+</head>
+<body>
+    <div id="content" th:fragment="content">
+        <!-- Welcome Section -->
+        <div class="welcome-section" style="margin-bottom: 2rem;">
+            <h2>¡Bienvenido, <span th:text="${#authentication.principal.username}">Usuario</span>!</h2>
+            <p>Aquí puedes ver un resumen de tu actividad y próximas clases.</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <!-- Próxima Clase -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt" style="font-size: 2rem; color: #4CAF50;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Próxima Clase</h3>
+                    <p class="stat-value">Yoga - 10:00 AM</p>
+                    <small>Mañana, 8:00 AM</small>
+                </div>
+            </div>
+
+            <!-- Rutina Activa -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-dumbbell" style="font-size: 2rem; color: #2196F3;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Rutina Activa</h3>
+                    <p class="stat-value">Rutina Inicial</p>
+                    <small>3 días por semana</small>
+                </div>
+            </div>
+
+            <!-- Peso Actual -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-weight" style="font-size: 2rem; color: #FF9800;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Peso Actual</h3>
+                    <p class="stat-value">75.5 kg</p>
+                    <small>-1.2 kg desde el inicio</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="routine-container" style="margin-top: 2rem;">
+            <div class="routine-tag">
+                <i class="fas fa-calendar-check"></i> Próximas Clases
+            </div>
+            <h3>Mis Próximas Clases</h3>
+            
+            <div class="class-schedule">
+                <div class="schedule-item">
+                    <div class="schedule-time">
+                        <span class="time">10:00</span>
+                        <span class="ampm">AM</span>
+                    </div>
+                    <div class="schedule-details">
+                        <h4>Yoga Matutino</h4>
+                        <p><i class="fas fa-user-tie"></i> Prof. Ana López</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Sala 2</p>
+                    </div>
+                    <div class="schedule-actions">
+                        <button class="btn btn-outline-primary btn-sm">Ver Detalles</button>
+                    </div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="schedule-time">
+                        <span class="time">17:30</span>
+                        <span class="ampm">PM</span>
+                    </div>
+                    <div class="schedule-details">
+                        <h4>Spinning</h4>
+                        <p><i class="fas fa-user-tie"></i> Prof. Carlos Ruiz</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Sala Spinning</p>
+                    </div>
+                    <div class="schedule-actions">
+                        <button class="btn btn-outline-primary btn-sm">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="routine-container" style="margin-top: 2rem;">
+            <div class="routine-tag">
+                <i class="fas fa-history"></i> Actividad Reciente
+            </div>
+            <h3>Mi Actividad</h3>
+            
+            <div class="activity-feed">
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="activity-details">
+                        <p>Completaste tu rutina de <strong>Pecho y Tríceps</strong></p>
+                        <small>Hace 2 horas</small>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="activity-details">
+                        <p>Te inscribiste a la clase de <strong>Yoga Matutino</strong></p>
+                        <small>Ayer a las 4:30 PM</small>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <div class="activity-details">
+                        <p>Actualizaste tu peso a <strong>75.5 kg</strong></p>
+                        <small>Hace 3 días</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .stats-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .stat-card {
+                background: white;
+                border-radius: 10px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                display: flex;
+                align-items: center;
+                transition: transform 0.3s ease;
+            }
+            
+            .stat-card:hover {
+                transform: translateY(-5px);
+            }
+            
+            .stat-icon {
+                margin-right: 1.5rem;
+                padding: 1rem;
+                border-radius: 50%;
+                background: #f5f7fa;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .stat-info h3 {
+                margin: 0 0 0.5rem 0;
+                font-size: 1rem;
+                color: #6c757d;
+            }
+            
+            .stat-value {
+                margin: 0;
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: #2c3e50;
+            }
+            
+            .stat-card small {
+                color: #6c757d;
+                font-size: 0.875rem;
+            }
+            
+            .class-schedule {
+                margin-top: 1.5rem;
+            }
+            
+            .schedule-item {
+                display: flex;
+                align-items: center;
+                padding: 1.25rem;
+                background: white;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                transition: all 0.3s ease;
+            }
+            
+            .schedule-item:hover {
+                transform: translateX(5px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+            
+            .schedule-time {
+                text-align: center;
+                margin-right: 1.5rem;
+                min-width: 80px;
+            }
+            
+            .schedule-time .time {
+                display: block;
+                font-size: 1.5rem;
+                font-weight: 600;
+                line-height: 1;
+            }
+            
+            .schedule-time .ampm {
+                font-size: 0.875rem;
+                color: #6c757d;
+            }
+            
+            .schedule-details {
+                flex: 1;
+            }
+            
+            .schedule-details h4 {
+                margin: 0 0 0.5rem 0;
+                color: #2c3e50;
+            }
+            
+            .schedule-details p {
+                margin: 0.25rem 0;
+                color: #6c757d;
+                font-size: 0.9rem;
+            }
+            
+            .schedule-details i {
+                width: 16px;
+                margin-right: 0.5rem;
+                color: #6c757d;
+            }
+            
+            .activity-feed {
+                margin-top: 1.5rem;
+            }
+            
+            .activity-item {
+                display: flex;
+                padding: 1rem 0;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .activity-item:last-child {
+                border-bottom: none;
+            }
+            
+            .activity-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: #f5f7fa;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 1rem;
+                color: #4CAF50;
+            }
+            
+            .activity-details {
+                flex: 1;
+            }
+            
+            .activity-details p {
+                margin: 0 0 0.25rem 0;
+                color: #2c3e50;
+            }
+            
+            .activity-details small {
+                color: #6c757d;
+                font-size: 0.8rem;
+            }
+            
+            @media (max-width: 768px) {
+                .schedule-item {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                
+                .schedule-time {
+                    margin: 0 0 1rem 0;
+                    text-align: left;
+                    display: flex;
+                    align-items: center;
+                }
+                
+                .schedule-time .time {
+                    margin-right: 0.5rem;
+                    font-size: 1.25rem;
+                }
+                
+                .schedule-actions {
+                    margin-top: 1rem;
+                    width: 100%;
+                }
+                
+                .schedule-actions .btn {
+                    width: 100%;
+                }
+            }
+        </style>
+    </div>
+</body>
+</html>

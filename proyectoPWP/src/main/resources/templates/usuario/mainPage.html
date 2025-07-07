@@ -12,13 +12,14 @@
         <div class="nav-container">
             <div class="logo">FitGym</div>
             <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="/inicio">Inicio</a></li>
                 <li><a href="#planes">Planes</a></li>
                 <li><a href="#clases">Clases</a></li>
                 <li><a href="#nutricion">Nutrición</a></li>
                 <li><a href="#comunidad">Comunidad</a></li>
             </ul>
-            <a href="login.html" class="nav-cta">Ingresar</a>
+            <a th:if="${#authorization.expression('!isAuthenticated()')}" href="/login" class="nav-cta">Ingresar</a>
+            <a th:if="${#authorization.expression('isAuthenticated()')}" href="/logout" class="nav-cta">Cerrar Sesión</a>
         </div>
     </nav>
 
@@ -33,7 +34,7 @@
             <p class="hero-subtitle">
                 Únete a la comunidad fitness más completa de Costa Rica. Entrena, nutre tu cuerpo y alcanza tus metas con el apoyo de expertos.
             </p>
-            <a href="register.html" class="hero-cta">Comenzar ahora</a>
+            <a href="/register" class="hero-cta">Comenzar ahora</a>
         </div>
         <div class="stats">
             <div class="stat-item">
@@ -164,7 +165,7 @@
             Únete a miles de personas que ya han cambiado su vida con FitGym
         </p>
         <div class="cta-buttons">
-            <a href="register.html" class="cta-btn-primary">
+            <a href="/register" class="cta-btn-primary">
                 Empezar ahora
             </a>
             <a href="#" class="cta-btn-secondary">
@@ -205,5 +206,24 @@
             <p>&copy; 2025 FitGym. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for fixed header
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
