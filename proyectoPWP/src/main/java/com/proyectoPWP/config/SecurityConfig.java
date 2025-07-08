@@ -75,8 +75,13 @@ public class SecurityConfig {
             .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/dashboard")
                 .successHandler(authenticationSuccessHandler())
+                .failureUrl("/login?error=true")
                 .permitAll()
+            )
+            .exceptionHandling(exception -> exception
+                .accessDeniedPage("/access-denied")
             )
             .logout(logout -> {
                 logout

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout/plantilla :: plantilla(~{::title}, ~{::section})}">
-    <head>
-        <title>Listado de Usuarios</title>
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      
+      <head th:replace="~{layout/plantilla :: head}"/>
+
     <body>
         <section class="container mt-4">
             <div th:if="${todoOK != null}" class="alert alert-success" role="alert">

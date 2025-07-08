@@ -16,6 +16,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
+import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 import org.thymeleaf.templatemode.TemplateMode;
 
 import java.util.Locale;
@@ -54,6 +55,7 @@ public class MvcConfig implements WebMvcConfigurer {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
+        templateEngine.addDialect(new SpringSecurityDialect());
         return templateEngine;
     }
     
@@ -79,15 +81,12 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        // Páginas de autenticación
         registry.addViewController("/login").setViewName("auth/login");
         registry.addViewController("/registro").setViewName("auth/registroUsuario");
         
-        // Páginas públicas
         registry.addViewController("/inicio").setViewName("usuario/mainPage");
         registry.addViewController("/acceso-denegado").setViewName("error/403");
         
-        // Redirecciones de dashboard
         registry.addViewController("/usuario/dashboard").setViewName("usuario/dashboard");
         registry.addViewController("/admin/dashboard").setViewName("admin/dashboard");
         registry.addViewController("/entrenador/dashboard").setViewName("entrenador/dashboard");

@@ -46,5 +46,4 @@ public class RegistroUsuarioDTO {
     
     private boolean newsletter;
     
-    // Getters y setters generados por Lombok con @Data
 }

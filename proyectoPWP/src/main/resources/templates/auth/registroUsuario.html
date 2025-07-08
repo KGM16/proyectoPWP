@@ -1,107 +1,106 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - FitGym</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <link rel="stylesheet" th:href="@{/css/auth-styles.css}">
+    <style th:inline="none">
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            counter-reset: step;
         }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            color: #ffffff;
-            min-height: 100vh;
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            color: #b0b0b0;
+            font-size: 0.85rem;
+        }
+        
+        .step:before {
+            content: counter(step);
+            counter-increment: step;
+            width: 30px;
+            height: 30px;
+            line-height: 28px;
+            display: block;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #b0b0b0;
+            color: #b0b0b0;
+            font-weight: 600;
+        }
+        
+        .step.active:before {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border-color: transparent;
+            color: #fff;
+        }
+        
+        .step.complete:before {
+            content: '✓';
+            background: rgba(40, 167, 69, 0.1);
+            border-color: #28a745;
+            color: #28a745;
+        }
+        
+        .step:after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: -50%;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+        }
+        
+        .step:first-child:after {
+            display: none;
+        }
+        
+        .step.active:after,
+        .step.complete:after {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .btn-next, .btn-prev {
+            min-width: 120px;
+        }
+        
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .form-navigation .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
-        }
-
-        .register-container {
-            max-width: 1000px;
-            width: 100%;
-            padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        .register-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-        }
-
-        .logo {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-        }
-
-        .register-subtitle {
-            text-align: center;
-            color: #b0b0b0;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-            font-weight: 400;
-        }
-
-        .form-control, .form-select {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #ffffff;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
         }
         
-        .form-control:focus, .form-select:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 107, 53, 0.5);
-            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
-        }
-        
-        .input-group-text {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ff6b35;
-        }
-        
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .form-control:focus, .form-select:focus {
-            outline: none;
-            border-color: #ff6b35;
-            background: rgba(255, 107, 53, 0.1);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        .form-navigation .btn i {
+            margin: 0 5px;
         }
 
         .form-check-input:focus {
@@ -399,11 +398,24 @@
     <div class="floating-element" style="width: 80px; height: 80px; top: 10%; left: 10%;"></div>
     <div class="floating-element" style="width: 120px; height: 120px; bottom: 20%; right: 15%; animation-delay: 2s;"></div>
     
-    <div class="register-container">
-        <div class="logo">
+    <div class="auth-container register-container">
+        <div class="auth-logo">
             <i class="fas fa-dumbbell me-2"></i>FitGym
         </div>
-        <p class="register-subtitle">Crea tu cuenta y comienza tu transformación</p>
+        <p class="auth-subtitle">Crea tu cuenta y comienza tu transformación</p>
+        
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step active" id="step1">
+                <span>Información Personal</span>
+            </div>
+            <div class="step" id="step2">
+                <span>Información de Cuenta</span>
+            </div>
+            <div class="step" id="step3">
+                <span>Confirmación</span>
+            </div>
+        </div>
         
         <!-- Barra de progreso -->
         <div class="progress">
@@ -419,7 +431,7 @@
         <!-- Formulario de registro -->
         <form th:action="@{/auth/registro}" th:object="${usuario}" method="post" id="register-form">
             <!-- Información Personal -->
-            <div class="form-section">
+            <div class="form-section active" id="section1">
                 <h5 class="form-section-title">
                     <i class="fas fa-user-circle me-2"></i>Información Personal
                 </h5>
@@ -476,7 +488,7 @@
             </div>
             
             <!-- Información de la Cuenta -->
-            <div class="form-section">
+            <div class="form-section" id="section2">
                 <h5 class="form-section-title">
                     <i class="fas fa-lock me-2"></i>Información de la Cuenta
                 </h5>
@@ -547,12 +559,45 @@
             </div>
             
             <!-- Términos y Condiciones -->
-            <div class="form-check mb-4">
-                <input class="form-check-input" type="checkbox" id="terminos" required>
-                <label class="form-check-label" for="terminos">
-                    Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#terminosModal">términos y condiciones</a> y la <a href="#" data-bs-toggle="modal" data-bs-target="#privacidadModal">política de privacidad</a>
-                </label>
-                <div class="invalid-feedback">Debes aceptar los términos y condiciones para continuar.</div>
+            <div class="form-section" id="section3">
+                <div class="text-center mb-4">
+                    <i class="fas fa-check-circle text-success" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                    <h4>¡Estás a un paso de unirte a FitGym!</h4>
+                    <p class="text-muted">Revisa y confirma tu información antes de continuar</p>
+                </div>
+                
+                <div class="card bg-dark bg-opacity-25 mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Resumen de tu información</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="mb-1"><strong>Nombre:</strong> <span id="resumen-nombre"></span></p>
+                                <p class="mb-1"><strong>Apellidos:</strong> <span id="resumen-apellidos"></span></p>
+                                <p class="mb-1"><strong>DNI:</strong> <span id="resumen-dni"></span></p>
+                                <p class="mb-1"><strong>Teléfono:</strong> <span id="resumen-telefono"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-1"><strong>Email:</strong> <span id="resumen-email"></span></p>
+                                <p class="mb-1"><strong>Nombre de usuario:</strong> <span id="resumen-username"></span></p>
+                                <p class="mb-1"><strong>Fecha de nacimiento:</strong> <span id="resumen-fechaNacimiento"></span></p>
+                                <p class="mb-1"><strong>Género:</strong> <span id="resumen-genero"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="terminos" required>
+                    <label class="form-check-label" for="terminos">
+                        Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#terminosModal">términos y condiciones</a> y la <a href="#" data-bs-toggle="modal" data-bs-target="#privacidadModal">política de privacidad</a>
+                    </label>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-user-plus me-2"></i>Crear Cuenta
+                    </button>
+                </div>
             </div>
             
             <div class="form-check mb-4">
@@ -568,14 +613,243 @@
             </button>
         </form>
         
+        <!-- Navigation Buttons -->
+        <div class="form-navigation">
+            <button type="button" class="btn btn-outline-secondary btn-prev" id="prevBtn" style="display: none;">
+                <i class="fas fa-arrow-left me-1"></i> Anterior
+            </button>
+            <button type="button" class="btn btn-primary btn-next" id="nextBtn">
+                Siguiente <i class="fas fa-arrow-right ms-1"></i>
+            </button>
+        </div>
+        
         <div class="divider">
             <span>¿Ya tienes una cuenta?</span>
         </div>
-        
-        <div class="login-link">
-            <a th:href="@{/login}">Iniciar sesión</a>
+        <div class="text-center">
+            <a th:href="@{/login}" class="btn btn-outline-light">Iniciar Sesión</a>
         </div>
     </div>
+    
+    <script>
+        // Variables globales
+        let currentSection = 1;
+        const totalSections = 3;
+        
+        // Función para actualizar la navegación
+        function updateNavigation() {
+            // Actualizar botones de navegación
+            document.getElementById('prevBtn').style.display = currentSection === 1 ? 'none' : 'block';
+            
+            if (currentSection === totalSections) {
+                document.getElementById('nextBtn').style.display = 'none';
+            } else {
+                document.getElementById('nextBtn').style.display = 'block';
+                document.getElementById('nextBtn').innerHTML = currentSection === totalSections - 1 ? 
+                    '<i class="fas fa-check me-1"></i> Confirmar' : 
+                    'Siguiente <i class="fas fa-arrow-right ms-1"></i>';
+            }
+            
+            // Actualizar pasos
+            for (let i = 1; i <= totalSections; i++) {
+                const step = document.getElementById('step' + i);
+                if (i < currentSection) {
+                    step.classList.remove('active');
+                    step.classList.add('complete');
+                } else if (i === currentSection) {
+                    step.classList.add('active');
+                    step.classList.remove('complete');
+                } else {
+                    step.classList.remove('active', 'complete');
+                }
+            }
+            
+            // Actualizar sección visible
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('section' + currentSection).classList.add('active');
+            
+            // Actualizar resumen en la última sección
+            if (currentSection === totalSections) {
+                updateSummary();
+            }
+        }
+        
+        // Función para actualizar el resumen
+        function updateSummary() {
+            // Obtener valores del formulario
+            const nombre = document.querySelector('input[name="nombre"]').value;
+            const apellidos = document.querySelector('input[name="apellidos"]').value;
+            const dni = document.querySelector('input[name="dni"]').value;
+            const telefono = document.querySelector('input[name="telefono"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+            const username = document.querySelector('input[name="username"]').value;
+            const fechaNacimiento = document.querySelector('input[name="fechaNacimiento"]').value;
+            const genero = document.querySelector('select[name="genero"]').options[document.querySelector('select[name="genero"]').selectedIndex].text;
+            
+            // Actualizar resumen
+            document.getElementById('resumen-nombre').textContent = nombre;
+            document.getElementById('resumen-apellidos').textContent = apellidos;
+            document.getElementById('resumen-dni').textContent = dni;
+            document.getElementById('resumen-telefono').textContent = telefono;
+            document.getElementById('resumen-email').textContent = email;
+            document.getElementById('resumen-username').textContent = username;
+            document.getElementById('resumen-fechaNacimiento').textContent = fechaNacimiento;
+            document.getElementById('resumen-genero').textContent = genero;
+        }
+        
+        // Función para validar la sección actual
+        function validateSection() {
+            const currentSectionEl = document.getElementById('section' + currentSection);
+            const inputs = currentSectionEl.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+            
+            // Validación especial para contraseñas si estamos en la sección 2
+            if (currentSection === 2) {
+                const password = document.querySelector('input[name="password"]').value;
+                const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
+                
+                if (password !== confirmPassword) {
+                    document.querySelector('input[name="confirmPassword"]').classList.add('is-invalid');
+                    document.getElementById('password-mismatch').style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.querySelector('input[name="confirmPassword"]').classList.remove('is-invalid');
+                    document.getElementById('password-mismatch').style.display = 'none';
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar navegación
+            updateNavigation();
+            
+            // Botón Siguiente
+            document.getElementById('nextBtn').addEventListener('click', function() {
+                if (validateSection()) {
+                    currentSection++;
+                    updateNavigation();
+                }
+            });
+            
+            // Botón Anterior
+            document.getElementById('prevBtn').addEventListener('click', function() {
+                currentSection--;
+                updateNavigation();
+            });
+            
+            // Mostrar/ocultar contraseña
+            document.querySelectorAll('.password-toggle').forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Validar contraseña en tiempo real
+            const passwordInput = document.querySelector('input[name="password"]');
+            if (passwordInput) {
+                passwordInput.addEventListener('input', checkPasswordStrength);
+            }
+            
+            // Validar coincidencia de contraseñas
+            const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
+            if (confirmPasswordInput) {
+                confirmPasswordInput.addEventListener('input', function() {
+                    const password = document.querySelector('input[name="password"]').value;
+                    if (this.value && password !== this.value) {
+                        this.classList.add('is-invalid');
+                        document.getElementById('password-mismatch').style.display = 'block';
+                    } else {
+                        this.classList.remove('is-invalid');
+                        document.getElementById('password-mismatch').style.display = 'none';
+                    }
+                });
+            }
+            
+            // Validar formulario al enviar
+            document.getElementById('register-form').addEventListener('submit', function(e) {
+                if (!document.getElementById('terminos').checked) {
+                    e.preventDefault();
+                    alert('Debes aceptar los términos y condiciones para continuar');
+                }
+            });
+        });
+        
+        // Función para verificar la fortaleza de la contraseña
+        function checkPasswordStrength() {
+            const password = this.value;
+            const strengthMeter = document.getElementById('password-strength');
+            const strengthBars = document.querySelectorAll('.strength-bar');
+            
+            // Resetear barras
+            strengthBars.forEach(bar => {
+                bar.style.width = '0%';
+                bar.style.backgroundColor = '';
+            });
+            
+            if (!password) {
+                strengthMeter.textContent = '';
+                return;
+            }
+            
+            // Calcular fortaleza (ejemplo simple)
+            let strength = 0;
+            let messages = [];
+            
+            // Longitud mínima
+            if (password.length >= 8) strength++;
+            
+            // Contiene números
+            if (/[0-9]/.test(password)) strength++;
+            
+            // Contiene letras mayúsculas y minúsculas
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            
+            // Contiene caracteres especiales
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            // Actualizar barras de fortaleza
+            for (let i = 0; i < strength; i++) {
+                strengthBars[i].style.width = '100%';
+                
+                // Cambiar color según la fortaleza
+                if (strength <= 2) {
+                    strengthBars[i].style.backgroundColor = '#ff4d4f'; // Rojo
+                    strengthMeter.textContent = 'Débil';
+                } else if (strength === 3) {
+                    strengthBars[i].style.backgroundColor = '#faad14'; // Amarillo
+                    strengthMeter.textContent = 'Media';
+                } else {
+                    strengthBars[i].style.backgroundColor = '#52c41a'; // Verde
+                    strengthMeter.textContent = 'Fuerte';
+                }
+            }
+        }
+    </script>
     
     <!-- Modal Términos y Condiciones -->
     <div class="modal fade" id="terminosModal" tabindex="-1" aria-labelledby="terminosModalLabel" aria-hidden="true">

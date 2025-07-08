@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{layout/usuario-layout.html :: layout(~{::title}, ~{::#content})}">
-<head>
-    <title>Mi Panel</title>
-    <th:block th:with="tituloPagina='Mi Panel', pageSubtitle='Bienvenido a tu espacio personal'"></th:block>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+      <head th:replace="~{layout/plantilla :: head}"/>
+
 <body>
     <div id="content" th:fragment="content">
         <!-- Welcome Section -->

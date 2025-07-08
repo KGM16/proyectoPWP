@@ -21,8 +21,6 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public List<Usuario> getUsuarios(boolean activo) {
         var lista = usuarioRepository.findAll();
-        
-        // Filtrar por estado activo si es necesario
         if (activo) {
             lista.removeIf(e -> !e.isActivo());
         }
