@@ -35,7 +35,7 @@ public class AuthController {
     public String processEmpleado(@RequestParam("codigo") String codigo,
                                   @RequestParam("password") String password,
                                   RedirectAttributes ra) {
-        // Autenticar contra base de datos
+
         return authService.autenticarEmpleado(codigo, password)
                 .map(u -> {
                     if (u instanceof com.proyectoPWP.domain.admin.Administrador) {

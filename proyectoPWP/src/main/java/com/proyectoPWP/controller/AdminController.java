@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class AdminController {
@@ -195,6 +196,32 @@ public class AdminController {
     @GetMapping("/admin/ofertas")
     public String ofertas(Model model) {
         model.addAttribute("ofertas", ofertaRepository.findAll());
+        model.addAttribute("oferta", new com.proyectoPWP.domain.oferta.Oferta());
         return "admin/administrarOfertas";
+    }
+    
+    @PostMapping("/admin/ofertas/guardar")
+    public String guardarOferta(@ModelAttribute("oferta") com.proyectoPWP.domain.oferta.Oferta oferta, 
+                              RedirectAttributes ra) {
+        ofertaRepository.save(oferta);
+        ra.addFlashAttribute("success", "Oferta guardada correctamente");
+        return "redirect:/admin/ofertas";
+    }
+    
+    @PostMapping("/admin/ofertas/editar")
+    public String editarOferta(@ModelAttribute("oferta") com.proyectoPWP.domain.oferta.Oferta oferta, 
+                             @RequestParam("id") Long id,
+                             RedirectAttributes ra) {
+        oferta.setId(id);
+        ofertaRepository.save(oferta);
+        ra.addFlashAttribute("success", "Oferta actualizada correctamente");
+        return "redirect:/admin/ofertas";
+    }
+    
+    @PostMapping("/admin/ofertas/delete/{id}")
+    public String eliminarOferta(@PathVariable("id") Long id, RedirectAttributes ra) {
+        ofertaRepository.deleteById(id);
+        ra.addFlashAttribute("success", "Oferta eliminada correctamente");
+        return "redirect:/admin/ofertas";
     }
 }
