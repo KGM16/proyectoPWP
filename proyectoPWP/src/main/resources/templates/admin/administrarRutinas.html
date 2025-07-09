@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+<section>
+    <h1 class="page-title">Rutinas</h1>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addRutinaModal">Nueva Rutina</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Nivel</th>
+            <th>Duración (min)</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${rutinas}">
+            <td th:text="${r.id}"></td>
+            <td th:text="${r.nombre}"></td>
+            <td th:text="${r.nivel}"></td>
+            <td th:text="${r.duracionMin}"></td>
+            <td th:text="${r.descripcion}"></td>
+            <td>
+                <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="modal" th:data-bs-target="'#editRutinaModal' + ${r.id}">Editar</button>
+                <form th:action="@{/admin/rutinas/delete}" method="post" style="display:inline-block">
+                    <input type="hidden" name="id" th:value="${r.id}">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar rutina?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Modales editar rutina -->
+<div th:each="r : ${rutinas}">
+    <div class="modal fade" th:id="${'editRutinaModal' + r.id}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/admin/rutinas/save}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Rutina</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" th:value="${r.id}" />
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" th:value="${r.nombre}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nivel</label>
+                            <input type="text" class="form-control" name="nivel" th:value="${r.nivel}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Duración (min)</label>
+                            <input type="number" class="form-control" name="duracionMin" th:value="${r.duracionMin}" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcion" th:text="${r.descripcion}"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal agregar rutina -->
+<div class="modal fade" id="addRutinaModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/rutinas/save}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nueva Rutina</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nivel</label>
+                        <input type="text" class="form-control" name="nivel">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Duración (min)</label>
+                        <input type="number" class="form-control" name="duracionMin" min="1">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" name="descripcion"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

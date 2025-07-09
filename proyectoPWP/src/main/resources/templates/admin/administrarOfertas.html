@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+<section>
+    <h1 class="page-title">Ofertas</h1>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addOfertaModal">Nueva Oferta</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>% Descuento</th>
+            <th>Activo</th>
+            <th>Fecha fin</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="o : ${ofertas}">
+            <td th:text="${o.id}"></td>
+            <td th:text="${o.nombre}"></td>
+            <td th:text="${o.porcentajeDescuento}"></td>
+            <td th:text="${o.activo ? 'Sí':'No'}"></td>
+            <td th:text="${o.fechaFin}"></td>
+            <td>
+                <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="modal" th:data-bs-target="'#editOfertaModal' + ${o.id}">Editar</button>
+                <form th:action="@{/admin/ofertas/delete}" method="post" style="display:inline-block">
+                    <input type="hidden" name="id" th:value="${o.id}">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar oferta?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Modales editar oferta -->
+<div th:each="o : ${ofertas}">
+    <div class="modal fade" th:id="${'editOfertaModal' + o.id}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/admin/ofertas/save}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Oferta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" th:value="${o.id}" />
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" th:value="${o.nombre}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">% Descuento</label>
+                            <input type="number" class="form-control" name="porcentajeDescuento" th:value="${o.porcentajeDescuento}" min="1" max="100" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="checkbox" name="activo" th:checked="${o.activo}">
+                            <label class="form-check-label">Activo</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha fin</label>
+                            <input type="date" class="form-control" name="fechaFin" th:value="${#temporals.format(o.fechaFin, 'yyyy-MM-dd')}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal agregar oferta -->
+<div class="modal fade" id="addOfertaModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/ofertas/save}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nueva Oferta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">% Descuento</label>
+                        <input type="number" class="form-control" name="porcentajeDescuento" min="1" max="100" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input class="form-check-input" type="checkbox" name="activo" checked>
+                        <label class="form-check-label">Activo</label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fecha fin</label>
+                        <input type="date" class="form-control" name="fechaFin">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

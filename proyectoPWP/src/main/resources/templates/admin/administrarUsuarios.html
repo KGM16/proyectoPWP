@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+<section>
+    <h1 class="page-title">Usuarios</h1>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addUsuarioModal">Nuevo Usuario</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${usuarios}">
+            <td th:text="${u.idUsuario}"></td>
+            <td th:text="${u.nombre + ' ' + u.apellido}"></td>
+            <td th:text="${u.email}"></td>
+            <td>
+                <span th:text="${u.activo ? 'Sí' : 'No'}"></span>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="modal" th:data-bs-target="'#editUsuarioModal' + ${u.idUsuario}">Editar</button>
+                <form th:action="@{/admin/usuarios/delete}" method="post" style="display:inline-block">
+                    <input type="hidden" name="id" th:value="${u.idUsuario}">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar usuario?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Modales editar usuario -->
+<div th:each="u : ${usuarios}">
+    <div class="modal fade" th:id="${'editUsuarioModal' + u.idUsuario}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/admin/usuarios/save}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="idUsuario" th:value="${u.idUsuario}" />
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" th:value="${u.nombre}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Apellido</label>
+                            <input type="text" class="form-control" name="apellido" th:value="${u.apellido}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" th:value="${u.email}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal agregar usuario -->
+<div class="modal fade" id="addUsuarioModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/usuarios/save}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <input type="hidden" name="tipoUsuario" value="CLIENTE">
+                    <input type="hidden" name="contrasena" value="password">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

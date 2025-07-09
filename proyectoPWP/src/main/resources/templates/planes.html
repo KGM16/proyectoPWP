@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Planes - FideGYM</title>
+    <link th:href="@{/css/admin.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-content">
+        <h1 class="page-title" style="text-align:center">Nuestros Planes</h1>
+        <div class="cards-container">
+            <div class="plan-card" th:each="plan : ${planes}">
+                <h2 th:text="${plan.nombre}"></h2>
+                <p th:text="${plan.descripcion}"></p>
+                <p><strong th:text="${#numbers.formatDecimal(plan.precio,1,'POINT',2,'POINT')}"></strong> CRC</p>
+                <p th:text="${plan.duracionMeses} + ' meses'"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

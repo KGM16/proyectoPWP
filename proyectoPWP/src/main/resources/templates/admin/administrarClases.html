@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+<section>
+    <h1 class="page-title">Clases</h1>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addClaseModal">Nueva Clase</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Horario</th>
+            <th>Cupo Máx</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${clases}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.nombre}"></td>
+            <td th:text="${c.descripcion}"></td>
+            <td th:text="${c.horario}"></td>
+            <td th:text="${c.cupoMax}"></td>
+            <td>
+                <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="modal" th:data-bs-target="'#editClaseModal' + ${c.id}">Editar</button>
+                <form th:action="@{/admin/clases/delete}" method="post" style="display:inline-block">
+                    <input type="hidden" name="id" th:value="${c.id}">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar clase?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Modales editar clase -->
+<div th:each="c : ${clases}">
+    <div class="modal fade" th:id="${'editClaseModal' + c.id}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/admin/clases/save}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Clase</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" th:value="${c.id}" />
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" th:value="${c.nombre}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcion" th:text="${c.descripcion}"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Horario</label>
+                            <input type="text" class="form-control" name="horario" th:value="${c.horario}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Cupo Máx</label>
+                            <input type="number" class="form-control" name="cupoMax" th:value="${c.cupoMax}" min="1" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal agregar clase -->
+<div class="modal fade" id="addClaseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/clases/save}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nueva Clase</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" name="descripcion"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Horario</label>
+                        <input type="text" class="form-control" name="horario">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cupo Máx</label>
+                        <input type="number" class="form-control" name="cupoMax" min="1" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+<section>
+    <h1 class="page-title">Panel Administrativo</h1>
+    <div class="dashboard-cards">
+        <a th:href="@{/admin/planes}" class="card-link">Gestionar Planes</a>
+        <a th:href="@{/admin/usuarios}" class="card-link">Gestionar Usuarios</a>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+<section>
+    <h1 class="page-title">Planes</h1>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPlanModal">Nuevo Plan</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Duración (meses)</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="plan : ${planes}">
+            <td th:text="${plan.id}"></td>
+            <td th:text="${plan.nombre}"></td>
+            <td th:text="${plan.duracionMeses}"></td>
+            <td th:text="${plan.precio}"></td>
+            <td>
+                <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="modal" th:data-bs-target="'#editPlanModal' + ${plan.id}">Editar</button>
+                <form th:action="@{/admin/planes/delete}" method="post" style="display:inline-block">
+                    <input type="hidden" name="id" th:value="${plan.id}">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar plan?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Modales editar plan -->
+<div th:each="plan : ${planes}">
+    <div class="modal fade" th:id="${'editPlanModal' + plan.id}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/admin/planes/save}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Plan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" th:value="${plan.id}" />
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea class="form-control" name="descripcion"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Duración (meses)</label>
+                            <input type="number" class="form-control" name="duracionMeses" min="1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Precio</label>
+                            <input type="number" class="form-control" name="precio" min="0" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal agregar plan -->
+<div class="modal fade" id="addPlanModal" tabindex="-1" aria-labelledby="addPlanLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/planes/save}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPlanLabel">Nuevo Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" name="descripcion"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Duración (meses)</label>
+                        <input type="number" class="form-control" name="duracionMeses" min="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Precio</label>
+                        <input type="number" class="form-control" name="precio" min="0" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
