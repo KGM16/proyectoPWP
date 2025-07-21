@@ -1,0 +1,31 @@
+<head th:fragment="head">
+    <meta charset="UTF-8" />
+    <title>FideGYM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<header th:fragment="header">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a th:href="@{/}" class="logo">FideGYM</a>
+            <ul class="nav-links">
+                <li><a th:href="@{/}">Inicio</a></li>
+                <li><a th:href="@{/planes}">Planes</a></li>
+
+                <!-- Si el usuario está en sesión -->
+                <li th:if="${usuario != null}">
+                    <a class="nav-item disabled">👋 <span th:text="${usuario.nombre}">Nombre</span></a>
+                </li>
+                <li th:if="${usuario != null}">
+                    <form th:action="@{/logout}" method="get">
+                        <button type="submit" class="logout-button">Cerrar sesión</button>
+                    </form>
+                </li>
+
+                <!-- Si NO hay usuario en sesión -->
+                <li th:if="${usuario == null}"><a th:href="@{/login}">Ingresar</a></li>
+                <li th:if="${usuario == null}"><a th:href="@{/register}">Regístrate</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>FideGYM</title>
+        <meta charset="UTF-8"/>
+        <link th:href="@{/css/styles.css}" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+        <title>FideGYM</title>
+        <meta charset="UTF-8"/>
+    
+<body>
+    <header th:replace="~{fragments/header :: header}"></header>
+        <div class="nav-container">
+            <div class="logo">FideGym</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#planes">Planes</a></li>
+                <li><a href="#clases">Clases</a></li>
+                <li><a href="#nutricion">Nutrición</a></li>
+                <li><a href="#comunidad">Comunidad</a></li>
+            </ul>
+            <a th:href="@{/login}" class="nav-cta">Ingresar</a>
+        </div>
+    
+    <section class="hero" id="inicio">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">Transforma tu vida</h1>
+            <p class="hero-subtitle">
+                Únete a la comunidad fitness más completa de Costa Rica. Entrena, nutre tu cuerpo y alcanza tus metas con el apoyo de expertos.
+            </p>
+            <a href="register" class="cta-btn-primary">
+               Comenzar ahora
+            </a>
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">2500+</span>
+                <span class="stat-label">Miembros Activos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">150+</span>
+                <span class="stat-label">Clases Semanales</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Satisfacción</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Sedes</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <h2 class="section-title">¿Por qué elegir FideGym?</h2>
+        <p class="section-subtitle">
+            Somos más que un gimnasio. Somos tu compañero en el camino hacia una vida más saludable y plena.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">:)️</div>
+                <h3 class="feature-title">Equipos de Primera</h3>
+                <p class="feature-description">
+                    Contamos con la última tecnología en equipos de entrenamiento para maximizar tus resultados.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">:)️</div>
+                <h3 class="feature-title">Entrenadores Certificados</h3>
+                <p class="feature-description">
+                    Nuestro equipo de profesionales te guiará en cada paso de tu transformación.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">:0</div>
+                <h3 class="feature-title">Nutrición Personalizada</h3>
+                <p class="feature-description">
+                    Planes nutricionales diseñados específicamente para tus objetivos y estilo de vida.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🕐</div>
+                <h3 class="feature-title">Horarios Flexibles</h3>
+                <p class="feature-description">
+                    Abierto desde las 5:00 AM hasta las 11:00 PM para adaptarse a tu rutina.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">App Móvil</h3>
+                <p class="feature-description">
+                    Reserva clases, sigue tu progreso y conecta con la comunidad desde tu celular.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">:)</div>
+                <h3 class="feature-title">Resultados Garantizados</h3>
+                <p class="feature-description">
+                    Metodología probada que ha transformado miles de vidas en todo el país.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="section" id="success">
+        <h2 class="section-title">Historias de Éxito</h2>
+        <p class="section-subtitle">
+            Conoce las transformaciones reales de nuestros miembros
+        </p>
+
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <p class="testimonial-quote">
+                    "En 6 meses perdí 25 kilos y gané una confianza que no tenía desde hace años. Los entrenadores de FitGym me apoyaron en cada momento."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">M</div>
+                    <div class="author-info">
+                        <h4>María González</h4>
+                        <p>Perdió 25kg en 6 meses</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-quote">
+                    "Después de una lesión pensé que no podría volver a entrenar. El equipo médico de FitGym me ayudó a recuperarme completamente."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">C</div>
+                    <div class="author-info">
+                        <h4>Carlos Ramírez</h4>
+                        <p>Recuperación completa</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-quote">
+                    "Las clases de Zumba y Spinning cambiaron mi vida. Nunca pensé que hacer ejercicio podría ser tan divertido y efectivo."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">A</div>
+                    <div class="author-info">
+                        <h4>Ana Morales</h4>
+                        <p>Miembro desde 2022</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">¿Listo para comenzar tu transformación?</h2>
+        <p class="cta-subtitle">
+            Únete a miles de personas que ya han cambiado su vida con FitGym
+        </p>
+        <div class="cta-buttons">
+            <a href="register" class="cta-btn-primary">
+                Empezar ahora
+            </a>
+            <a href="#" class="cta-btn-secondary">
+                Agendar clase de prueba
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FitGym</h3>
+                <p>Transformando vidas a través del fitness y la nutrición desde 2020.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="#planes">Planes</a><br>
+                <a href="#clases">Clases</a><br>
+                <a href="#nutricion">Nutrición</a><br>
+                <a href="#comunidad">Comunidad</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📞 +506 2222-3333</p>
+                <p>📧 info@fitgym.cr</p>
+                <p>📍 San José, Costa Rica</p>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <a href="#">Facebook</a><br>
+                <a href="#">Instagram</a><br>
+                <a href="#">YouTube</a><br>
+                <a href="#">TikTok</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FitGym. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

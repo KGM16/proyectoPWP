@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+<section>
+    <h1 class="page-title">Ejercicios</h1>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEjercicioModal">Nuevo Ejercicio</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Grupo Muscular</th>
+            <th>Video</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="e : ${ejercicios}">
+            <td th:text="${e.id}"></td>
+            <td th:text="${e.nombre}"></td>
+            <td th:text="${e.grupoMuscular}"></td>
+            <td><a th:href="${e.videoUrl}" target="_blank">Ver</a></td>
+            <td>
+                <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="modal" th:data-bs-target="'#editEjercicioModal' + ${e.id}">Editar</button>
+                <form th:action="@{/admin/ejercicios/delete}" method="post" style="display:inline-block">
+                    <input type="hidden" name="id" th:value="${e.id}">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar ejercicio?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Modales editar ejercicio -->
+<div th:each="e : ${ejercicios}">
+    <div class="modal fade" th:id="${'editEjercicioModal' + e.id}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/admin/ejercicios/save}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Ejercicio</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" th:value="${e.id}" />
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" th:value="${e.nombre}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Grupo Muscular</label>
+                            <input type="text" class="form-control" name="grupoMuscular" th:value="${e.grupoMuscular}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">URL Video</label>
+                            <input type="url" class="form-control" name="videoUrl" th:value="${e.videoUrl}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal agregar ejercicio -->
+<div class="modal fade" id="addEjercicioModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/ejercicios/save}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Ejercicio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Grupo Muscular</label>
+                        <input type="text" class="form-control" name="grupoMuscular">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">URL Video</label>
+                        <input type="url" class="form-control" name="videoUrl">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

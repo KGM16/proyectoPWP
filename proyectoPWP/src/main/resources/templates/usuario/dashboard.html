@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/plantilla}">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Panel de Usuario</title>
+        <link rel="stylesheet" th:href="@{/css/usuario.css}">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <section layout:fragment="contenido">
+            <div class="dashboard-layout">
+
+                <main class="dashboard-main">
+                    <header>
+                        <h1>¡Hola, <span th:text="${usuario.nombre}">Usuario</span>!</h1>
+                        <p>Bienvenido de nuevo a tu panel de FideGYM. Aquí puedes ver tu progreso y gestionar tu membresía.</p>
+                    </header>
+
+                    <section class="stats">
+                        <div class="stat">Entrenamientos<br><strong>12</strong></div>
+                        <div class="stat">Calorías quemadas<br><strong>8,500</strong></div>
+                        <div class="stat">Tiempo activo<br><strong>7h 30m</strong></div>
+                        <div class="stat">Fuerza<br><strong>+15%</strong></div>
+                    </section>
+
+                    <section class="acciones">
+                        <a th:href="@{/usuario/agendar}"> 
+                            <button>Agendar clase</button></a>
+                        <button>Ver progreso</button>
+                        <button>Plan nutricional</button>
+                        <button>Contactar entrenador</button>
+                    </section>
+
+                    <section class="actividad">
+                        <h2>Actividad reciente</h2>
+                        <ul>
+                            <li>✔️ Entrenamiento de fuerza completado</li>
+                            <li>🥗 Plan nutricional actualizado</li>
+                            <li>🧘 Clase agendada para el viernes</li>
+                        </ul>
+                    </section>
+
+                    <section class="clases">
+                        <h2>Próximas clases</h2>
+                        <ul>
+                            <li>Yoga al Atardecer - Viernes 6PM</li>
+                            <li>Entrenamiento Funcional - Sábado 9AM</li>
+                            <li>Spinning Avanzado - Lunes 6:30AM</li>
+                        </ul>
+                    </section>
+                </main>
+
+                <aside class="dashboard-sidebar">
+                    <div class="plan-card">
+                        <div class="plan-header">PREMIUM</div>
+                        <ul>
+                            <li><strong>Vencimiento:</strong> 15/07/2025</li>
+                            <li><strong>Estado:</strong> Activo</li>
+                            <li><strong>Sede:</strong> San José Centro</li>
+                            <li><strong>Progreso mensual:</strong> 12/16 visitas</li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                        <p style="text-align:center; margin-top:5px;">75% completado</p>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+    </body>
+</html>

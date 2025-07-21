@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/plantilla}">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Mis Clases</title>
+        <link rel="stylesheet" th:href="@{/css/usuario.css}">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    </head>
+
+    <!-- Lista de clases agendadas -->
+    <section th:if="${clasesAgendadas}" style="margin-bottom: 30px;">
+        <h2>Mis clases agendadas</h2>
+        <ul>
+            <li th:each="mat : ${clasesAgendadas}">
+                <strong th:text="${mat.clase.nombre}"></strong> -
+                <span th:text="${mat.clase.horario}"></span>
+            </li>
+        </ul>
+    </section>
+
+    <section layout:fragment="contenido">
+        <h1>Agendar Clase</h1>
+
+        <div class="clase-grid">
+            <div class="clase-card" th:each="clase : ${clases}">
+                <h2 th:text="${clase.nombre}"></h2>
+                <p th:text="${clase.descripcion}"></p>
+                <p th:text="${clase.horario}"></p>
+                <form th:action="@{/usuario/agendar/{id}(id=${clase.id})}" method="post">
+                    <button type="submit">Matricular</button>
+                </form>
+            </div>
+            <!-- Mensaje de confirmación -->
+            <div th:if="${mensaje}" class="alert alert-success" style="margin-bottom: 20px;">
+                <p th:text="${mensaje}"></p>
+            </div>
+        </div>
+    </section>
+
+</html>

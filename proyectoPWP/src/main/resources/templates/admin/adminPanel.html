@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Header -->
+    <div class="admin-header">
+        <h1 class="admin-title">Panel Administrativo</h1>
+        <p class="admin-subtitle">Gestiona todos los aspectos de FideGYM desde aquí</p>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <h2 class="stats-title">Estadísticas Generales</h2>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">2,847</span>
+                <span class="stat-label">Usuarios Activos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">156</span>
+                <span class="stat-label">Clases Esta Semana</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">45</span>
+                <span class="stat-label">Empleados</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Sedes Activas</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">₡8.2M</span>
+                <span class="stat-label">Ingresos Mes</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Grid -->
+    <div class="admin-grid">
+        <div class="admin-card">
+            <div class="admin-card-icon">👥</div>
+            <h3 class="admin-card-title">Administrar Usuarios</h3>
+            <p class="admin-card-description">
+                Gestiona los perfiles de usuarios, membresías y estados de cuenta
+            </p>
+            <a th:href="@{/admin/usuarios}" class="admin-card-button">Gestionar</a>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-icon">🎯</div>
+            <h3 class="admin-card-title">Administrar Ofertas</h3>
+            <p class="admin-card-description">
+                Crea y administra promociones, descuentos y ofertas especiales
+            </p>
+            <a th:href="@{/admin/ofertas}" class="admin-card-button">Gestionar</a>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-icon">👨‍💼</div>
+            <h3 class="admin-card-title">Administrar Empleados</h3>
+            <p class="admin-card-description">
+                Gestiona el personal, horarios y asignaciones de trabajo
+            </p>
+            <a th:href="@{/admin/empleados}" class="admin-card-button">Gestionar</a>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-icon">🏢</div>
+            <h3 class="admin-card-title">Administrar Sedes</h3>
+            <p class="admin-card-description">
+                Administra las diferentes ubicaciones y sus características
+            </p>
+            <a th:href="@{/admin/sedes}" class="admin-card-button">Gestionar</a>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-icon">📋</div>
+            <h3 class="admin-card-title">Gestionar Planes</h3>
+            <p class="admin-card-description">
+                Administra los planes de membresía y sus características
+            </p>
+            <a th:href="@{/admin/planes}" class="admin-card-button">Gestionar</a>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-icon">⭐</div>
+            <h3 class="admin-card-title">Clases Especiales</h3>
+            <p class="admin-card-description">
+                Administra eventos especiales, talleres y clases premium
+            </p>
+            <a th:href="@{/admin/clases}" class="admin-card-button">Gestionar</a>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-icon">💪</div>
+            <h3 class="admin-card-title">Gestionar Ejercicios</h3>
+            <p class="admin-card-description">
+                Administra el catálogo de ejercicios y sus descripciones
+            </p>
+            <a th:href="@{/admin/ejercicios}" class="admin-card-button">Gestionar</a>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-icon">📝</div>
+            <h3 class="admin-card-title">Gestionar Rutinas</h3>
+            <p class="admin-card-description">
+                Crea y administra rutinas de entrenamiento personalizadas
+            </p>
+            <a th:href="@{/admin/rutinas}" class="admin-card-button">Gestionar</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

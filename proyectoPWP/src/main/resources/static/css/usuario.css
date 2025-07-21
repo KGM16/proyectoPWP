@@ -1,0 +1,217 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0e0e0e;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+.dashboard-container {
+    max-width: 1000px;
+    margin: auto;
+}
+header h1 {
+    font-size: 2em;
+}
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.stat {
+    background: #1f1f1f;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+}
+.acciones {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+.acciones button {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    background: #ff7b00;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.actividad, .clases {
+    margin-top: 40px;
+}
+.actividad ul, .clases ul {
+    list-style: none;
+    padding: 0;
+}
+.actividad li, .clases li {
+    background: #1c1c1c;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 6px;
+}
+
+.dashboard-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.dashboard-main {
+    flex: 3;
+}
+
+.dashboard-sidebar {
+    flex: 1;
+}
+
+.plan-card {
+    background-color: #1c1c1c;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+.plan-card .plan-header {
+    background-color: #ff7b00;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.plan-card ul li {
+    padding: 5px 0;
+}
+
+.progress-bar {
+    background-color: #333;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    background-color: #00c853;
+    height: 100%;
+    width: 0%;
+}
+
+
+.navbar {
+background-color: #0e0e0e;
+padding: 20px;
+}
+
+.nav-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+color: #ff7b00;
+font-size: 24px;
+font-weight: bold;
+text-decoration: none;
+}
+
+.nav-links {
+list-style: none;
+display: flex;
+gap: 20px;
+margin: 0;
+padding: 0;
+align-items: center;
+}
+
+.nav-links li a {
+color: white;
+text-decoration: none;
+font-weight: 600;
+}
+
+.nav-links li a:hover {
+color: #ff7b00;
+}
+
+.nav-links li {
+display: flex;
+align-items: center;
+}
+
+/* Contenedor general para las tarjetas */
+.clase-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 20px;
+margin-top: 30px;
+}
+
+/* Tarjeta de clase */
+.clase-card {
+background-color: #1f1f1f;
+border-radius: 10px;
+padding: 20px;
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+min-height: 200px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Título dentro de la tarjeta */
+.clase-card h2 {
+color: #ff7b00;
+font-size: 20px;
+margin-bottom: 10px;
+}
+
+/* Botón matricular */
+.clase-card button {
+background-color: #ff7b00;
+color: white;
+border: none;
+padding: 10px;
+border-radius: 6px;
+font-weight: bold;
+cursor: pointer;
+transition: background-color 0.2s ease-in-out;
+}
+
+.clase-card button:hover {
+background-color: #ff9900;
+}
+
+/* Lista de clases agendadas */
+section ul {
+list-style: none;
+padding: 0;
+}
+
+section ul li {
+background-color: #1c1c1c;
+padding: 12px;
+margin-bottom: 10px;
+border-radius: 6px;
+}
+
+/* Mensaje de éxito */
+.alert-success {
+background-color: #003300;
+color: #00ff88;
+padding: 15px;
+border-radius: 6px;
+font-weight: bold;
+}
