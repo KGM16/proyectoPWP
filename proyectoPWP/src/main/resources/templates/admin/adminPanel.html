@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - FideGYM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body class="admin-dashboard-body">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="bi bi-lightning-charge-fill"></i>
+                <span>FideGYM</span>
+                <span class="admin-badge">Admin</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item active">
+                    <a th:href="@{/admin}" class="nav-link">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <span class="nav-section-title">Usuarios</span>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/usuarios}" class="nav-link">
+                        <i class="bi bi-people-fill"></i>
+                        <span>Gestionar Usuarios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/empleados}" class="nav-link">
+                        <i class="bi bi-person-badge-fill"></i>
+                        <span>Empleados</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <span class="nav-section-title">Servicios</span>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/planes}" class="nav-link">
+                        <i class="bi bi-card-list"></i>
+                        <span>Planes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/clases}" class="nav-link">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Clases</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/ejercicios}" class="nav-link">
+                        <i class="bi bi-activity"></i>
+                        <span>Ejercicios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/rutinas}" class="nav-link">
+                        <i class="bi bi-list-check"></i>
+                        <span>Rutinas</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <span class="nav-section-title">Empresa</span>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/sedes}" class="nav-link">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Sedes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/ofertas}" class="nav-link">
+                        <i class="bi bi-tag-fill"></i>
+                        <span>Ofertas</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <span class="nav-section-title">Sistema</span>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-graph-up"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar" th:text="${#strings.substring(session.usuario?.nombre ?: 'A', 0, 1)}">A</div>
+                <div class="user-details">
+                    <span class="user-name" th:text="${session.usuario?.nombre ?: 'Administrador'}">Administrador</span>
+                    <span class="user-role">Administrador</span>
+                </div>
+            </div>
+            <a th:href="@{/logout}" class="logout-btn" title="Cerrar Sesión">
+                <i class="bi bi-box-arrow-right"></i>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main-content">
+        <!-- Welcome Section -->
+        <div class="admin-welcome">
+            <div class="admin-welcome-content">
+                <h1 class="admin-welcome-title">
+                    <span class="admin-icon">🛡️</span>
+                    Panel de Control FideGYM
+                </h1>
+                <p class="admin-welcome-subtitle">
+                    Bienvenido, <span th:text="${session.usuario?.nombre ?: 'Administrador'}">Administrador</span>. 
+                    Gestiona todos los aspectos de FideGYM desde un solo lugar.
+                </p>
+                <div class="admin-quick-actions">
+                    <a href="#stats" class="quick-action-btn">
+                        <span class="icon">📊</span>
+                        Ver Estadísticas
+                    </a>
+                    <a th:href="@{/admin/usuarios}" class="quick-action-btn">
+                        <span class="icon">👥</span>
+                        Gestionar Usuarios
+                    </a>
+                    <a th:href="@{/admin/clases}" class="quick-action-btn">
+                        <span class="icon">🏃</span>
+                        Programar Clases
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Dashboard -->
+        <div id="stats" class="admin-stats-section">
+            <h2 class="section-title">
+                <span class="section-icon">📊</span>
+                Estadísticas en Tiempo Real
+            </h2>
+            
+            <div class="admin-stats-grid">
+                <div class="admin-stat-card primary">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" th:text="${totalUsuarios}">0</h3>
+                        <p class="stat-label">Total Usuarios</p>
+                        <span class="stat-change positive" th:text="${usuariosActivos} + ' activos'">0 activos</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card secondary">
+                    <div class="stat-icon">🏃</div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" th:text="${totalClases}">0</h3>
+                        <p class="stat-label">Total Clases</p>
+                        <span class="stat-change info" th:text="${clasesHoy} + ' hoy'">0 hoy</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card success">
+                    <div class="stat-icon">👨‍💼</div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" th:text="${totalEmpleados}">0</h3>
+                        <p class="stat-label">Total Empleados</p>
+                        <span class="stat-change neutral">Personal activo</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card warning">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" th:text="${totalSedes}">0</h3>
+                        <p class="stat-label">Sedes Operativas</p>
+                        <span class="stat-change positive">100% operativas</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card info">
+                    <div class="stat-icon">💪</div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" th:text="${totalEjercicios}">0</h3>
+                        <p class="stat-label">Ejercicios Disponibles</p>
+                        <span class="stat-change positive" th:text="${totalRutinas} + ' rutinas'">0 rutinas</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card danger">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" th:text="${totalPlanes}">0</h3>
+                        <p class="stat-label">Planes Disponibles</p>
+                        <span class="stat-change positive" th:text="${totalOfertas} + ' ofertas'">0 ofertas</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card primary">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-content">
+                        <h3 class="stat-number" th:text="${nuevosUsuariosEsteMes}">0</h3>
+                        <p class="stat-label">Nuevos Este Mes</p>
+                        <span class="stat-change positive">Crecimiento mensual</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card success">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3 class="stat-number">100%</h3>
+                        <p class="stat-label">Sistema Operativo</p>
+                        <span class="stat-change positive">Todos los servicios activos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Management Sections -->
+        <div class="admin-sections">
+            <!-- User Management -->
+            <div class="admin-section">
+                <h2 class="section-title">
+                    <span class="section-icon">👥</span>
+                    Gestión de Usuarios
+                </h2>
+                <div class="admin-cards-row">
+                    <div class="admin-management-card">
+                        <div class="card-header">
+                            <div class="card-icon users">👤</div>
+                            <h3>Administrar Usuarios</h3>
+                        </div>
+                        <p class="card-description">
+                            Gestiona perfiles, membresías y estados de cuenta de todos los clientes.
+                        </p>
+                        <div class="card-stats">
+                            <span class="mini-stat">👥 2,847 usuarios</span>
+                            <span class="mini-stat">✅ 2,234 activos</span>
+                        </div>
+                        <a th:href="@{/admin/usuarios}" class="card-action-btn">
+                            Gestionar Usuarios
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div class="admin-management-card">
+                        <div class="card-header">
+                            <div class="card-icon employees">👨‍💼</div>
+                            <h3>Administrar Empleados</h3>
+                        </div>
+                        <p class="card-description">
+                            Gestiona el personal, horarios, roles y asignaciones de trabajo.
+                        </p>
+                        <div class="card-stats">
+                            <span class="mini-stat">👨‍💼 45 empleados</span>
+                            <span class="mini-stat">👨‍🏫 28 entrenadores</span>
+                        </div>
+                        <a th:href="@{/admin/empleados}" class="card-action-btn">
+                            Gestionar Personal
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services Management -->
+            <div class="admin-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🏋️</span>
+                    Gestión de Servicios
+                </h2>
+                <div class="admin-cards-grid">
+                    <div class="admin-management-card">
+                        <div class="card-header">
+                            <div class="card-icon plans">📋</div>
+                            <h3>Planes de Membresía</h3>
+                        </div>
+                        <p class="card-description">
+                            Administra los diferentes planes, precios y beneficios.
+                        </p>
+                        <a th:href="@{/admin/planes}" class="card-action-btn">
+                            Gestionar Planes
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div class="admin-management-card">
+                        <div class="card-header">
+                            <div class="card-icon classes">🏃</div>
+                            <h3>Clases y Eventos</h3>
+                        </div>
+                        <p class="card-description">
+                            Programa clases, eventos especiales y talleres.
+                        </p>
+                        <a th:href="@{/admin/clases}" class="card-action-btn">
+                            Gestionar Clases
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div class="admin-management-card">
+                        <div class="card-header">
+                            <div class="card-icon exercises">💪</div>
+                            <h3>Ejercicios</h3>
+                        </div>
+                        <p class="card-description">
+                            Administra el catálogo de ejercicios y descripciones.
+                        </p>
+                        <a th:href="@{/admin/ejercicios}" class="card-action-btn">
+                            Gestionar Ejercicios
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div class="admin-management-card">
+                        <div class="card-header">
+                            <div class="card-icon routines">📝</div>
+                            <h3>Rutinas</h3>
+                        </div>
+                        <p class="card-description">
+                            Crea y administra rutinas de entrenamiento personalizadas.
+                        </p>
+                        <a th:href="@{/admin/rutinas}" class="card-action-btn">
+                            Gestionar Rutinas
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Management -->
+            <div class="admin-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🏢</span>
+                    Gestión Empresarial
+                </h2>
+                <div class="admin-cards-row">
+                    <div class="admin-management-card">
+                        <div class="card-header">
+                            <div class="card-icon locations">🏢</div>
+                            <h3>Sedes y Ubicaciones</h3>
+                        </div>
+                        <p class="card-description">
+                            Administra las diferentes sedes, horarios y características.
+                        </p>
+                        <div class="card-stats">
+                            <span class="mini-stat">🏢 5 sedes activas</span>
+                            <span class="mini-stat">🔄 100% operativas</span>
+                        </div>
+                        <a th:href="@{/admin/sedes}" class="card-action-btn">
+                            Gestionar Sedes
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div class="admin-management-card">
+                        <div class="card-header">
+                            <div class="card-icon offers">🎯</div>
+                            <h3>Ofertas y Promociones</h3>
+                        </div>
+                        <p class="card-description">
+                            Crea y administra promociones, descuentos y ofertas especiales.
+                        </p>
+                        <div class="card-stats">
+                            <span class="mini-stat">🎯 8 ofertas activas</span>
+                            <span class="mini-stat">📈 +25% conversiones</span>
+                        </div>
+                        <a th:href="@{/admin/ofertas}" class="card-action-btn">
+                            Gestionar Ofertas
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{fragments/header :: head}"></head>
+
+<body class="bg-dark text-white">
+    
+    <!-- Navbar - Se puede sobrescribir en cada página -->
+    <nav th:replace="~{fragments/header :: navbar-public}"></nav>
+    
+    <!-- Contenido principal -->
+    <main layout:fragment="content">
+        <!-- El contenido específico de cada página va aquí -->
+    </main>
+    
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    
+    <!-- Scripts -->
+    <div th:replace="~{fragments/header :: scripts}"></div>
+    
+    <!-- Scripts adicionales específicos de cada página -->
+    <div layout:fragment="scripts"></div>
+    
+</body>
+</html>

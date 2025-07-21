@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/usuario}">
+
+<div layout:fragment="content">
+    <!-- Header de Plan de Alimentación -->
+    <div class="dashboard-header">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="h3 mb-0">Mi Plan de Alimentación</h1>
+                <p class="text-muted mb-0">Nutrición personalizada para alcanzar tus objetivos</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#calculadoraModal">
+                    <i class="bi bi-calculator me-2"></i>Calculadora Nutricional
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resumen Nutricional del Día -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number text-primary">2,150</div>
+                <div class="stat-label">Calorías Objetivo</div>
+                <small class="text-muted">Consumidas: 1,850</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number text-success">120g</div>
+                <div class="stat-label">Proteínas</div>
+                <small class="text-muted">Objetivo: 130g</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number text-warning">180g</div>
+                <div class="stat-label">Carbohidratos</div>
+                <small class="text-muted">Objetivo: 200g</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number text-info">65g</div>
+                <div class="stat-label">Grasas</div>
+                <small class="text-muted">Objetivo: 70g</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plan de Comidas del Día -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Plan de Comidas - Hoy</h5>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-outline-primary" onclick="cambiarDia(-1)">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="cambiarDia(1)">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Desayuno -->
+                    <div class="meal-section mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="meal-icon me-3">
+                                <i class="bi bi-sunrise text-warning" style="font-size: 1.5rem;"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Desayuno</h6>
+                                <small class="text-muted">7:00 AM - 450 cal</small>
+                            </div>
+                        </div>
+                        <div class="meal-items">
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <span class="fw-medium">Avena con frutas</span>
+                                    <br><small class="text-muted">1 taza de avena, 1 plátano, arándanos</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-light text-dark">320 cal</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2">
+                                <div>
+                                    <span class="fw-medium">Café con leche</span>
+                                    <br><small class="text-muted">1 taza, leche descremada</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-light text-dark">130 cal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Almuerzo -->
+                    <div class="meal-section mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="meal-icon me-3">
+                                <i class="bi bi-sun text-primary" style="font-size: 1.5rem;"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Almuerzo</h6>
+                                <small class="text-muted">1:00 PM - 650 cal</small>
+                            </div>
+                        </div>
+                        <div class="meal-items">
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <span class="fw-medium">Pechuga de pollo a la plancha</span>
+                                    <br><small class="text-muted">150g con especias</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-light text-dark">280 cal</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <span class="fw-medium">Arroz integral</span>
+                                    <br><small class="text-muted">1 taza cocida</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-light text-dark">220 cal</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2">
+                                <div>
+                                    <span class="fw-medium">Ensalada mixta</span>
+                                    <br><small class="text-muted">Lechuga, tomate, pepino, aceite de oliva</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-light text-dark">150 cal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cena -->
+                    <div class="meal-section">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="meal-icon me-3">
+                                <i class="bi bi-moon text-secondary" style="font-size: 1.5rem;"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Cena</h6>
+                                <small class="text-muted">7:00 PM - 550 cal</small>
+                            </div>
+                        </div>
+                        <div class="meal-items">
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <div>
+                                    <span class="fw-medium">Salmón al horno</span>
+                                    <br><small class="text-muted">120g con limón y hierbas</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-light text-dark">300 cal</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2">
+                                <div>
+                                    <span class="fw-medium">Brócoli al vapor</span>
+                                    <br><small class="text-muted">1 taza</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-light text-dark">80 cal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Lateral -->
+        <div class="col-lg-4">
+            <!-- Hidratación -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="mb-0">Hidratación</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="bi bi-droplet-fill text-primary" style="font-size: 3rem;"></i>
+                        <div class="mt-2">
+                            <span class="h5">6/8</span>
+                            <small class="text-muted d-block">vasos de agua</small>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-outline-primary" onclick="agregarVasoAgua()">
+                            <i class="bi bi-plus-circle me-2"></i>Agregar vaso
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consejos Nutricionales -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">Consejo del Día</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-start">
+                        <i class="bi bi-lightbulb text-warning me-3" style="font-size: 1.5rem;"></i>
+                        <div>
+                            <p class="mb-0 small">Incluye proteína en cada comida para mantener la saciedad y preservar la masa muscular.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="scripts">
+<script>
+function cambiarDia(direccion) {
+    console.log('Cambiar día:', direccion);
+}
+
+function agregarVasoAgua() {
+    console.log('Agregar vaso de agua');
+}
+</script>
+</div>
+
+</html>

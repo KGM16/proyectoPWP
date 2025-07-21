@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body class="login-body">
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
+    <div class="login-container register-container">
+        <div class="logo">FideGYM</div>
+        <p class="login-subtitle">Crea tu cuenta</p>
+
+            <!-- Error/Success Messages -->
+            <div th:if="${error}" class="alert alert-error">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <span th:text="${error}"></span>
+            </div>
+            
+            <div th:if="${message}" class="alert alert-success">
+                <i class="bi bi-check-circle-fill"></i>
+                <span th:text="${message}"></span>
+            </div>
+
+        <form th:action="@{/register}" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">
+                            <i class="bi bi-person-fill"></i>
+                            Nombre
+                        </label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">
+                            <i class="bi bi-person-fill"></i>
+                            Apellido
+                        </label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Tu apellido" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">
+                        <i class="bi bi-envelope-fill"></i>
+                        Email
+                    </label>
+                    <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">
+                            <i class="bi bi-telephone-fill"></i>
+                            Teléfono
+                        </label>
+                        <input type="tel" id="phone" name="phone" placeholder="+506 8888-8888" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate">
+                            <i class="bi bi-calendar-fill"></i>
+                            Fecha de Nacimiento
+                        </label>
+                        <input type="date" id="birthDate" name="birthDate" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gender">
+                            <i class="bi bi-gender-ambiguous"></i>
+                            Género
+                        </label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Seleccionar</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal">
+                            <i class="bi bi-bullseye"></i>
+                            Objetivo Principal
+                        </label>
+                        <select id="goal" name="goal" required>
+                            <option value="">Seleccionar</option>
+                            <option value="bajar-peso">Bajar de peso</option>
+                            <option value="ganar-masa">Ganar masa muscular</option>
+                            <option value="mantener-forma">Mantener forma</option>
+                            <option value="mejorar-salud">Mejorar salud</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="bi bi-lock-fill"></i>
+                        Contraseña
+                    </label>
+                    <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        <i class="bi bi-lock-fill"></i>
+                        Confirmar Contraseña
+                    </label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirma tu contraseña" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        Acepto los <a href="#" class="link">términos y condiciones</a> y la <a href="#" class="link">política de privacidad</a>
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">
+                        Quiero recibir noticias y promociones por email
+                    </label>
+                </div>
+                
+            <button type="submit" class="login-btn">
+                Crear Cuenta
+            </button>
+        </form>
+        
+        <div class="divider">
+            <span>o</span>
+        </div>
+        
+        <p class="register-link">
+            ¿Ya tienes cuenta? <a th:href="@{/login/usuario}">Inicia sesión</a>
+        </p>
+        
+        <p class="register-link">
+            <a th:href="@{/login/empleado}">Acceso para empleados</a>
+        </p>
+        
+        <p class="register-link">
+            <a th:href="@{/}">← Volver al inicio</a>
+        </p>
+        
+        <div class="security-note">
+            🔒 Tus datos están protegidos y seguros
+        </div>
+    </div>
+</body>
+</html>

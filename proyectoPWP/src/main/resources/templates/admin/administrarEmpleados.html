@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantillaAdmin :: head}"></head>
+<body>
+<header th:replace="~{layout/plantillaAdmin :: navbar}"></header>
+<section>
+    <h1 class="page-title">Empleados</h1>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEmpleadoModal">Nuevo Empleado</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Código</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="e : ${empleados}">
+            <td th:text="${e.idUsuario}"></td>
+            <td th:text="${e.nombre}"></td>
+            <td th:text="${e.apellido}"></td>
+            <td th:text="${e.codigo}"></td>
+            <td th:text="${e.email}"></td>
+            <td th:text="${e.rol}"></td>
+            <td>
+                <button type="button" class="btn btn-sm btn-info me-1" data-bs-toggle="modal" th:data-bs-target="'#editEmpleadoModal' + ${e.idUsuario}">Editar</button>
+                <form th:action="@{/admin/empleados/delete}" method="post" style="display:inline-block">
+                    <input type="hidden" name="idUsuario" th:value="${e.idUsuario}">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar empleado?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Modales editar empleado -->
+<div th:each="e : ${empleados}">
+    <div class="modal fade" th:id="${'editEmpleadoModal' + e.idUsuario}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/admin/empleados/save}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Empleado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="idUsuario" th:value="${e.idUsuario}" />
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" th:value="${e.nombre}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Apellido</label>
+                            <input type="text" class="form-control" name="apellido" th:value="${e.apellido}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Código</label>
+                            <input type="text" class="form-control" name="codigo" th:value="${e.codigo}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" th:value="${e.email}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Rol</label>
+                            <input type="text" class="form-control" name="rol" th:value="${e.rol}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal agregar empleado -->
+<div class="modal fade" id="addEmpleadoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/empleados/save}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Código</label>
+                        <input type="text" class="form-control" name="codigo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Rol</label>
+                        <input type="text" class="form-control" name="rol">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

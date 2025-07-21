@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/usuario}">
+
+<div layout:fragment="content">
+    <!-- Header del Perfil -->
+    <div class="dashboard-header">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="h3 mb-0">Mi Perfil</h1>
+                <p class="text-muted mb-0">Gestiona tu información personal y preferencias</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn btn-primary" onclick="habilitarEdicion()">
+                    <i class="bi bi-pencil me-2"></i>Editar Perfil
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Información Personal -->
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Información Personal</h5>
+                </div>
+                <div class="card-body">
+                    <form id="perfilForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" th:value="${usuario.nombre}" readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="apellido" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="apellido" th:value="${usuario.apellido}" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" th:value="${usuario.email}" readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono" th:value="${usuario.telefono}" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fechaNacimiento" th:value="${usuario.fechaNacimiento}" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="genero" class="form-label">Género</label>
+                                <select class="form-select" id="genero" disabled>
+                                    <option value="M" th:selected="${usuario.genero == 'M'}">Masculino</option>
+                                    <option value="F" th:selected="${usuario.genero == 'F'}">Femenino</option>
+                                    <option value="O" th:selected="${usuario.genero == 'O'}">Otro</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
+                                <select class="form-select" id="tipoDocumento" disabled>
+                                    <option value="CC" th:selected="${usuario.tipoDocumento == 'CC'}">Cédula</option>
+                                    <option value="TI" th:selected="${usuario.tipoDocumento == 'TI'}">Tarjeta de Identidad</option>
+                                    <option value="CE" th:selected="${usuario.tipoDocumento == 'CE'}">Cédula de Extranjería</option>
+                                    <option value="PP" th:selected="${usuario.tipoDocumento == 'PP'}">Pasaporte</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="numeroDocumento" class="form-label">Número de Documento</label>
+                                <input type="text" class="form-control" id="numeroDocumento" th:value="${usuario.numeroDocumento}" readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="direccion" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccion" th:value="${usuario.direccion}" readonly>
+                            </div>
+                        </div>
+                        <div class="d-none" id="botonesEdicion">
+                            <button type="button" class="btn btn-success me-2" onclick="guardarCambios()">
+                                <i class="bi bi-check-lg me-2"></i>Guardar Cambios
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelarEdicion()">
+                                <i class="bi bi-x-lg me-2"></i>Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Información Física -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Información Física</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="peso" class="form-label">Peso (kg)</label>
+                            <input type="number" class="form-control" id="peso" th:value="${usuario.peso}" readonly>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="altura" class="form-label">Altura (cm)</label>
+                            <input type="number" class="form-control" id="altura" th:value="${usuario.altura}" readonly>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">IMC</label>
+                            <div class="form-control-plaintext" id="imc">
+                                <span class="h6" th:text="${#numbers.formatDecimal(usuario.peso / ((usuario.altura/100) * (usuario.altura/100)), 1, 1)}">24.2</span>
+                                <small class="text-muted d-block">Normal</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="nivelActividad" class="form-label">Nivel de Actividad</label>
+                            <select class="form-select" id="nivelActividad" disabled>
+                                <option value="sedentario">Sedentario</option>
+                                <option value="ligero">Ligeramente activo</option>
+                                <option value="moderado" selected>Moderadamente activo</option>
+                                <option value="activo">Muy activo</option>
+                                <option value="extremo">Extremadamente activo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="objetivo" class="form-label">Objetivo Principal</label>
+                            <select class="form-select" id="objetivo" disabled>
+                                <option value="perder_peso">Perder peso</option>
+                                <option value="mantener_peso" selected>Mantener peso</option>
+                                <option value="ganar_peso">Ganar peso</option>
+                                <option value="ganar_musculo">Ganar músculo</option>
+                                <option value="mejorar_resistencia">Mejorar resistencia</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="experiencia" class="form-label">Experiencia en Ejercicio</label>
+                            <select class="form-select" id="experiencia" disabled>
+                                <option value="principiante">Principiante</option>
+                                <option value="intermedio" selected>Intermedio</option>
+                                <option value="avanzado">Avanzado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cambiar Contraseña -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Cambiar Contraseña</h5>
+                </div>
+                <div class="card-body">
+                    <form id="passwordForm">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="passwordActual" class="form-label">Contraseña Actual</label>
+                                <input type="password" class="form-control" id="passwordActual">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="passwordNueva" class="form-label">Nueva Contraseña</label>
+                                <input type="password" class="form-control" id="passwordNueva">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="passwordConfirmar" class="form-label">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="passwordConfirmar">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-warning" onclick="cambiarPassword()">
+                            <i class="bi bi-shield-lock me-2"></i>Cambiar Contraseña
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Lateral -->
+        <div class="col-lg-4">
+            <!-- Foto de Perfil -->
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <div class="profile-photo mb-3">
+                        <img src="/images/default-avatar.png" alt="Foto de perfil" class="rounded-circle" width="120" height="120">
+                    </div>
+                    <h5 th:text="${usuario.nombre + ' ' + usuario.apellido}">Juan Pérez</h5>
+                    <p class="text-muted mb-3" th:text="${usuario.email}">juan.perez@email.com</p>
+                    <button class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-camera me-2"></i>Cambiar Foto
+                    </button>
+                </div>
+            </div>
+
+            <!-- Estadísticas Rápidas -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="mb-0">Estadísticas</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span>Clases Tomadas</span>
+                        <span class="badge bg-primary">45</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span>Rutinas Completadas</span>
+                        <span class="badge bg-success">12</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span>Días Activo</span>
+                        <span class="badge bg-warning">89</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Miembro desde</span>
+                        <span class="text-muted" th:text="${#temporals.format(usuario.fechaRegistro, 'MMM yyyy')}">Ene 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plan Actual -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="mb-0">Plan Actual</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <h5 class="text-primary">Plan Premium</h5>
+                        <p class="text-muted mb-3">Acceso completo a todas las funcionalidades</p>
+                        <div class="mb-3">
+                            <small class="text-muted">Vence el:</small>
+                            <div class="fw-bold">15 de Marzo, 2024</div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-arrow-up-circle me-2"></i>Renovar Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuración de Notificaciones -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">Notificaciones</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="notifClases" checked>
+                        <label class="form-check-label" for="notifClases">
+                            Recordatorios de clases
+                        </label>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="notifRutinas" checked>
+                        <label class="form-check-label" for="notifRutinas">
+                            Nuevas rutinas disponibles
+                        </label>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="notifOfertas">
+                        <label class="form-check-label" for="notifOfertas">
+                            Ofertas y promociones
+                        </label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="notifEmail" checked>
+                        <label class="form-check-label" for="notifEmail">
+                            Notificaciones por email
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="scripts">
+<script>
+let editando = false;
+let datosOriginales = {};
+
+function habilitarEdicion() {
+    editando = true;
+    
+    // Guardar datos originales
+    datosOriginales = {
+        nombre: document.getElementById('nombre').value,
+        apellido: document.getElementById('apellido').value,
+        telefono: document.getElementById('telefono').value,
+        direccion: document.getElementById('direccion').value,
+        peso: document.getElementById('peso').value,
+        altura: document.getElementById('altura').value,
+        nivelActividad: document.getElementById('nivelActividad').value,
+        objetivo: document.getElementById('objetivo').value,
+        experiencia: document.getElementById('experiencia').value
+    };
+    
+    // Habilitar campos editables
+    document.getElementById('nombre').readOnly = false;
+    document.getElementById('apellido').readOnly = false;
+    document.getElementById('telefono').readOnly = false;
+    document.getElementById('direccion').readOnly = false;
+    document.getElementById('peso').readOnly = false;
+    document.getElementById('altura').readOnly = false;
+    document.getElementById('nivelActividad').disabled = false;
+    document.getElementById('objetivo').disabled = false;
+    document.getElementById('experiencia').disabled = false;
+    
+    // Mostrar botones de edición
+    document.getElementById('botonesEdicion').classList.remove('d-none');
+    
+    // Cambiar el botón principal
+    document.querySelector('.dashboard-header button').innerHTML = 
+        '<i class="bi bi-x-lg me-2"></i>Cancelar Edición';
+    document.querySelector('.dashboard-header button').onclick = cancelarEdicion;
+}
+
+function cancelarEdicion() {
+    editando = false;
+    
+    // Restaurar datos originales
+    Object.keys(datosOriginales).forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+            element.value = datosOriginales[key];
+        }
+    });
+    
+    // Deshabilitar campos
+    document.getElementById('nombre').readOnly = true;
+    document.getElementById('apellido').readOnly = true;
+    document.getElementById('telefono').readOnly = true;
+    document.getElementById('direccion').readOnly = true;
+    document.getElementById('peso').readOnly = true;
+    document.getElementById('altura').readOnly = true;
+    document.getElementById('nivelActividad').disabled = true;
+    document.getElementById('objetivo').disabled = true;
+    document.getElementById('experiencia').disabled = true;
+    
+    // Ocultar botones de edición
+    document.getElementById('botonesEdicion').classList.add('d-none');
+    
+    // Restaurar el botón principal
+    document.querySelector('.dashboard-header button').innerHTML = 
+        '<i class="bi bi-pencil me-2"></i>Editar Perfil';
+    document.querySelector('.dashboard-header button').onclick = habilitarEdicion;
+}
+
+function guardarCambios() {
+    // Validar datos
+    const nombre = document.getElementById('nombre').value.trim();
+    const apellido = document.getElementById('apellido').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const peso = parseFloat(document.getElementById('peso').value);
+    const altura = parseFloat(document.getElementById('altura').value);
+    
+    if (!nombre || !apellido) {
+        alert('El nombre y apellido son obligatorios');
+        return;
+    }
+    
+    if (peso <= 0 || altura <= 0) {
+        alert('El peso y altura deben ser valores positivos');
+        return;
+    }
+    
+    // Aquí iría la llamada al servidor para guardar los cambios
+    console.log('Guardando cambios...');
+    
+    // Simular guardado exitoso
+    setTimeout(() => {
+        alert('Perfil actualizado correctamente');
+        cancelarEdicion();
+        calcularIMC();
+    }, 1000);
+}
+
+function cambiarPassword() {
+    const actual = document.getElementById('passwordActual').value;
+    const nueva = document.getElementById('passwordNueva').value;
+    const confirmar = document.getElementById('passwordConfirmar').value;
+    
+    if (!actual || !nueva || !confirmar) {
+        alert('Todos los campos de contraseña son obligatorios');
+        return;
+    }
+    
+    if (nueva !== confirmar) {
+        alert('Las contraseñas no coinciden');
+        return;
+    }
+    
+    if (nueva.length < 6) {
+        alert('La nueva contraseña debe tener al menos 6 caracteres');
+        return;
+    }
+    
+    // Aquí iría la llamada al servidor para cambiar la contraseña
+    console.log('Cambiando contraseña...');
+    
+    // Simular cambio exitoso
+    setTimeout(() => {
+        alert('Contraseña cambiada correctamente');
+        document.getElementById('passwordForm').reset();
+    }, 1000);
+}
+
+function calcularIMC() {
+    const peso = parseFloat(document.getElementById('peso').value);
+    const altura = parseFloat(document.getElementById('altura').value) / 100;
+    
+    if (peso > 0 && altura > 0) {
+        const imc = peso / (altura * altura);
+        let categoria = '';
+        
+        if (imc < 18.5) categoria = 'Bajo peso';
+        else if (imc < 25) categoria = 'Normal';
+        else if (imc < 30) categoria = 'Sobrepeso';
+        else categoria = 'Obesidad';
+        
+        document.getElementById('imc').innerHTML = 
+            `<span class="h6">${imc.toFixed(1)}</span><small class="text-muted d-block">${categoria}</small>`;
+    }
+}
+
+// Calcular IMC cuando cambien peso o altura
+document.getElementById('peso').addEventListener('input', calcularIMC);
+document.getElementById('altura').addEventListener('input', calcularIMC);
+</script>
+</div>
+
+</html>

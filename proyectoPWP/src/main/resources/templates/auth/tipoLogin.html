@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body class="auth-body">
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Back to Home -->
+    <a th:href="@{/}" class="back-to-home">
+        <i class="bi bi-house-fill"></i>
+        <span>Volver al Inicio</span>
+    </a>
+
+    <main class="auth-main">
+        <div class="auth-container">
+            <!-- Header -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">FideGYM</span>
+                </div>
+                <h1 class="auth-title">Selecciona tu Tipo de Acceso</h1>
+                <p class="auth-subtitle">Elige la opción que corresponde a tu perfil para acceder al sistema</p>
+            </div>
+
+            <!-- Login Type Cards -->
+            <div class="login-type-grid">
+                <!-- Usuario Card -->
+                <a th:href="@{/login/usuario}" class="login-type-card user-card">
+                    <div class="card-icon">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Usuario</h3>
+                        <p>Acceso para clientes y miembros del gimnasio</p>
+                        <div class="card-features">
+                            <span class="feature">• Ver clases disponibles</span>
+                            <span class="feature">• Gestionar rutinas</span>
+                            <span class="feature">• Plan de alimentación</span>
+                            <span class="feature">• Perfil personal</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Empleado/Admin Card -->
+                <a th:href="@{/login/empleado}" class="login-type-card employee-card">
+                    <div class="card-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Empleado / Administrador</h3>
+                        <p>Acceso para personal y administradores</p>
+                        <div class="card-features">
+                            <span class="feature">• Panel administrativo</span>
+                            <span class="feature">• Gestión de usuarios</span>
+                            <span class="feature">• Control de clases</span>
+                            <span class="feature">• Reportes y estadísticas</span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="auth-footer">
+                <div class="help-text">
+                    <i class="bi bi-info-circle"></i>
+                    <span>¿No tienes cuenta? <a th:href="@{/register}" class="register-link">Regístrate aquí</a></span>
+                </div>
+                <div class="security-note">
+                    <i class="bi bi-lock-fill"></i>
+                    <span>Conexión segura y protegida</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

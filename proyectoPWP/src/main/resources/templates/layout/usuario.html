@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{fragments/header :: head}"></head>
+
+<body class="bg-dark text-white">
+    
+    <!-- Navbar Usuario -->
+    <nav th:replace="~{fragments/header :: navbar-usuario}"></nav>
+    
+    <!-- Contenido principal -->
+    <main class="container-fluid mt-4">
+        <div class="row">
+            <!-- Sidebar opcional -->
+            <div class="col-md-3" th:if="${showSidebar}">
+                <div class="sidebar">
+                    <div class="nav flex-column nav-pills">
+                        <a class="nav-link" th:href="@{/usuario}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
+                            <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                        </a>
+                        <a class="nav-link" th:href="@{/usuario/clases}" th:classappend="${activePage == 'clases'} ? 'active' : ''">
+                            <i class="bi bi-calendar-event me-2"></i>Mis Clases
+                        </a>
+                        <a class="nav-link" th:href="@{/usuario/rutinas}" th:classappend="${activePage == 'rutinas'} ? 'active' : ''">
+                            <i class="bi bi-activity me-2"></i>Rutinas
+                        </a>
+                        <a class="nav-link" th:href="@{/usuario/plan-alimentacion}" th:classappend="${activePage == 'nutricion'} ? 'active' : ''">
+                            <i class="bi bi-apple me-2"></i>Nutrición
+                        </a>
+                        <a class="nav-link" th:href="@{/usuario/perfil}" th:classappend="${activePage == 'perfil'} ? 'active' : ''">
+                            <i class="bi bi-person me-2"></i>Mi Perfil
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido principal -->
+            <div th:class="${showSidebar} ? 'col-md-9' : 'col-12'">
+                <div layout:fragment="content">
+                    <!-- El contenido específico de cada página va aquí -->
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    
+    <!-- Scripts -->
+    <div th:replace="~{fragments/header :: scripts}"></div>
+    
+    <!-- Scripts adicionales específicos de cada página -->
+    <div layout:fragment="scripts"></div>
+    
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+    <nav th:replace="~{fragments/header :: navbar-public}"></nav>
+    
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Sobre Nosotros</h1>
+                <p>Conoce más sobre FideGYM</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-section">
+                    <h2>Nuestra Historia</h2>
+                    <p>FideGYM nació con la visión de crear un espacio donde las personas puedan transformar sus vidas a través del fitness y el bienestar. Desde nuestros inicios, nos hemos comprometido a ofrecer las mejores instalaciones, equipos de última generación y un equipo de profesionales altamente capacitados.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Nuestra Misión</h2>
+                    <p>Inspirar y empoderar a nuestros miembros para que alcancen sus objetivos de salud y fitness, proporcionando un ambiente motivador, inclusivo y profesional donde cada persona pueda desarrollar su máximo potencial.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Nuestros Valores</h2>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <i class="bi bi-heart-fill"></i>
+                            <h3>Pasión</h3>
+                            <p>Amamos lo que hacemos y nos dedicamos completamente a ayudarte a alcanzar tus metas.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="bi bi-people-fill"></i>
+                            <h3>Comunidad</h3>
+                            <p>Creemos en el poder de la comunidad para motivar y apoyar el crecimiento personal.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="bi bi-trophy-fill"></i>
+                            <h3>Excelencia</h3>
+                            <p>Nos esforzamos por la excelencia en todo lo que hacemos, desde nuestros servicios hasta nuestras instalaciones.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="bi bi-shield-check"></i>
+                            <h3>Integridad</h3>
+                            <p>Actuamos con honestidad, transparencia y respeto en todas nuestras interacciones.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Nuestro Equipo</h2>
+                    <p>Contamos con un equipo de entrenadores certificados, nutricionistas y especialistas en bienestar que están aquí para guiarte en cada paso de tu journey fitness. Cada miembro de nuestro equipo comparte la pasión por ayudar a otros a vivir una vida más saludable y activa.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

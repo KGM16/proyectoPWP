@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+    <nav th:replace="~{fragments/header :: navbar-public}"></nav>
+    
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Nuestros Servicios</h1>
+                <p>Descubre todo lo que FideGYM tiene para ofrecerte</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
+                    <h3>Entrenamiento Personal</h3>
+                    <p>Sesiones individualizadas con entrenadores certificados para maximizar tus resultados.</p>
+                    <ul>
+                        <li>Evaluación física completa</li>
+                        <li>Plan de entrenamiento personalizado</li>
+                        <li>Seguimiento continuo</li>
+                        <li>Ajustes según progreso</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <h3>Clases Grupales</h3>
+                    <p>Variedad de clases dirigidas para todos los niveles y preferencias.</p>
+                    <ul>
+                        <li>Yoga y Pilates</li>
+                        <li>Spinning y Cardio</li>
+                        <li>Crossfit y Funcional</li>
+                        <li>Baile y Zumba</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-heart-pulse-fill"></i>
+                    </div>
+                    <h3>Nutrición Deportiva</h3>
+                    <p>Asesoramiento nutricional especializado para complementar tu entrenamiento.</p>
+                    <ul>
+                        <li>Planes alimentarios personalizados</li>
+                        <li>Consultas nutricionales</li>
+                        <li>Seguimiento de progreso</li>
+                        <li>Educación nutricional</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-stopwatch-fill"></i>
+                    </div>
+                    <h3>Acceso 24/7</h3>
+                    <p>Entrena cuando quieras con nuestro acceso las 24 horas del día.</p>
+                    <ul>
+                        <li>Acceso con tarjeta personalizada</li>
+                        <li>Seguridad 24 horas</li>
+                        <li>Equipos siempre disponibles</li>
+                        <li>Flexibilidad total</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-water"></i>
+                    </div>
+                    <h3>Área de Relajación</h3>
+                    <p>Espacios diseñados para tu recuperación y bienestar post-entrenamiento.</p>
+                    <ul>
+                        <li>Sauna y vapor</li>
+                        <li>Jacuzzi</li>
+                        <li>Área de estiramiento</li>
+                        <li>Zona de hidratación</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-gear-fill"></i>
+                    </div>
+                    <h3>Equipos de Última Generación</h3>
+                    <p>Tecnología avanzada para potenciar tu entrenamiento.</p>
+                    <ul>
+                        <li>Máquinas cardiovasculares</li>
+                        <li>Equipos de fuerza</li>
+                        <li>Área de peso libre</li>
+                        <li>Zona funcional</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h2>¿Listo para comenzar?</h2>
+                <p>Únete a FideGYM y descubre todo lo que podemos hacer por ti</p>
+                <div class="cta-buttons">
+                    <a th:href="@{/register}" class="btn btn-primary">Registrarse</a>
+                    <a th:href="@{/planes}" class="btn btn-outline">Ver Planes</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

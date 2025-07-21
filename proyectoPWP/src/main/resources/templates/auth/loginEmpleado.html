@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    
+    <div class="login-container">
+        <div class="logo">FideGYM</div>
+        <p class="login-subtitle">Acceso para empleados</p>
+        
+        <!-- Error Messages -->
+        <div th:if="${error}" class="alert alert-error">
+            <span th:text="${error}"></span>
+        </div>
+        
+        <div th:if="${success}" class="alert alert-success">
+            <span th:text="${success}"></span>
+        </div>
+        
+        <form th:action="@{/login/empleado}" method="post">
+            <div class="form-group">
+                <label for="codigo">Código de Empleado</label>
+                <input type="text" id="codigo" name="codigo" placeholder="EMP-0001 / ADM-0001" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Acceder</button>
+            
+            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+        </form>
+        
+        <div class="divider">
+            <span>o</span>
+        </div>
+        
+        <p class="register-link">
+            <a th:href="@{/login/usuario}">Acceso para usuarios</a>
+        </p>
+        
+        <p class="register-link">
+            <a th:href="@{/}">← Volver al inicio</a>
+        </p>
+        
+        <div class="security-note">
+            🔒 Acceso restringido solo para personal autorizado
+        </div>
+    </div>
+</body>
+</html>

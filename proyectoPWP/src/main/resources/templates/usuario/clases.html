@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/usuario}">
+
+<div layout:fragment="content">
+    <!-- Header de Clases -->
+    <div class="dashboard-header">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="h3 mb-0">Mis Clases</h1>
+                <p class="text-muted mb-0">Explora y reserva las clases disponibles en FideGYM</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filtrosModal">
+                    <i class="bi bi-funnel me-2"></i>Filtros
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtros Rápidos -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select class="form-select" id="filtroCategoria">
+                                <option value="">Todas las categorías</option>
+                                <option value="CARDIO">Cardio</option>
+                                <option value="FUERZA">Fuerza</option>
+                                <option value="FLEXIBILIDAD">Flexibilidad</option>
+                                <option value="FUNCIONAL">Funcional</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="filtroNivel">
+                                <option value="">Todos los niveles</option>
+                                <option value="PRINCIPIANTE">Principiante</option>
+                                <option value="INTERMEDIO">Intermedio</option>
+                                <option value="AVANZADO">Avanzado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" class="form-control" id="filtroFecha" />
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-outline-primary w-100" onclick="aplicarFiltros()">
+                                <i class="bi bi-search me-2"></i>Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clases Disponibles -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Clases Disponibles</h5>
+                </div>
+                <div class="card-body">
+                    <div th:if="${#lists.isEmpty(clasesDisponibles)}" class="text-center py-5">
+                        <i class="bi bi-calendar-x text-muted" style="font-size: 4rem;"></i>
+                        <h4 class="text-muted mt-3">No hay clases disponibles</h4>
+                        <p class="text-muted">Intenta cambiar los filtros o vuelve más tarde</p>
+                    </div>
+                    
+                    <div th:unless="${#lists.isEmpty(clasesDisponibles)}" class="row">
+                        <div class="col-lg-6 col-xl-4 mb-4" th:each="clase : ${clasesDisponibles}">
+                            <div class="card h-100 class-card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0" th:text="${clase.nombre}">Nombre de la Clase</h6>
+                                    <span class="badge" th:classappend="${clase.nivel == 'PRINCIPIANTE'} ? 'bg-success' : (${clase.nivel == 'INTERMEDIO'} ? 'bg-warning' : 'bg-danger')" 
+                                          th:text="${clase.nivel}">Nivel</span>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-muted small" th:text="${clase.descripcion}">Descripción de la clase</p>
+                                    
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-clock text-primary me-2"></i>
+                                            <small th:text="${#dates.format(clase.fechaHora, 'dd/MM/yyyy HH:mm')}">Fecha y hora</small>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-geo-alt text-primary me-2"></i>
+                                            <small th:text="${clase.sede?.nombre}">Sede</small>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-person text-primary me-2"></i>
+                                            <small th:text="${clase.entrenador?.nombre + ' ' + clase.entrenador?.apellido}">Entrenador</small>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-people text-primary me-2"></i>
+                                            <small>
+                                                <span th:text="${clase.cupoActual}">0</span>/<span th:text="${clase.cupoMaximo}">20</span> participantes
+                                            </small>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-currency-dollar text-primary me-2"></i>
+                                            <small>
+                                                <span th:if="${clase.precio != null}" th:text="'$' + ${clase.precio}">$15</span>
+                                                <span th:unless="${clase.precio != null}">Incluida en plan</span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Progreso de cupo -->
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <small class="text-muted">Cupo disponible</small>
+                                            <small class="text-muted" th:text="${clase.cupoMaximo - clase.cupoActual} + ' lugares'">5 lugares</small>
+                                        </div>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-primary" role="progressbar" 
+                                                 th:style="'width: ' + ${(clase.cupoActual * 100) / clase.cupoMaximo} + '%'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary w-100" 
+                                            th:disabled="${!clase.tieneCupoDisponible()}"
+                                            th:onclick="'reservarClase(' + ${clase.id} + ')'">
+                                        <i class="bi bi-calendar-plus me-2"></i>
+                                        <span th:if="${clase.tieneCupoDisponible()}">Reservar Clase</span>
+                                        <span th:unless="${clase.tieneCupoDisponible()}">Cupo Lleno</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Filtros -->
+<div class="modal fade" id="filtrosModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Filtros Avanzados</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Entrenador</label>
+                    <select class="form-select" id="filtroEntrenador">
+                        <option value="">Todos los entrenadores</option>
+                        <!-- Opciones dinámicas -->
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Sede</label>
+                    <select class="form-select" id="filtroSede">
+                        <option value="">Todas las sedes</option>
+                        <!-- Opciones dinámicas -->
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Duración máxima (minutos)</label>
+                    <input type="range" class="form-range" id="filtroDuracion" min="30" max="120" value="90">
+                    <div class="d-flex justify-content-between">
+                        <small>30 min</small>
+                        <small id="duracionValue">90 min</small>
+                        <small>120 min</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="aplicarFiltrosAvanzados()">Aplicar Filtros</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="scripts">
+<script>
+function reservarClase(claseId) {
+    if (confirm('¿Estás seguro de que quieres reservar esta clase?')) {
+        fetch(`/usuario/clases/${claseId}/reservar`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('¡Clase reservada exitosamente!');
+                location.reload();
+            } else {
+                alert('Error al reservar la clase. Inténtalo de nuevo.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al reservar la clase.');
+        });
+    }
+}
+
+function aplicarFiltros() {
+    const categoria = document.getElementById('filtroCategoria').value;
+    const nivel = document.getElementById('filtroNivel').value;
+    const fecha = document.getElementById('filtroFecha').value;
+    
+    const params = new URLSearchParams();
+    if (categoria) params.append('categoria', categoria);
+    if (nivel) params.append('nivel', nivel);
+    if (fecha) params.append('fecha', fecha);
+    
+    window.location.href = '/usuario/clases?' + params.toString();
+}
+
+function aplicarFiltrosAvanzados() {
+    // Implementar filtros avanzados
+    const modal = bootstrap.Modal.getInstance(document.getElementById('filtrosModal'));
+    modal.hide();
+    aplicarFiltros();
+}
+
+// Actualizar valor del slider de duración
+document.getElementById('filtroDuracion').addEventListener('input', function() {
+    document.getElementById('duracionValue').textContent = this.value + ' min';
+});
+</script>
+</div>
+
+</html>

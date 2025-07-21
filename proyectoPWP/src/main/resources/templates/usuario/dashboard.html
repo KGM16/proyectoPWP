@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/usuario}">
+
+<div layout:fragment="content">
+    <!-- Header del Dashboard -->
+    <div class="dashboard-header">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="h3 mb-0">¡Bienvenido/a, <span th:text="${usuario.nombre}">Usuario</span>!</h1>
+                <p class="text-muted mb-0">Aquí tienes un resumen de tu actividad en FideGYM</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <a th:href="@{/usuario/clases}" class="btn btn-primary">
+                    <i class="bi bi-calendar-plus me-2"></i>Reservar Clase
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estadísticas Rápidas -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" th:text="${#lists.size(rutinasActivas)}">0</div>
+                <div class="stat-label">Rutinas Activas</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" th:text="${#lists.size(clasesProximas)}">0</div>
+                <div class="stat-label">Clases Próximas</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Entrenamientos Este Mes</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Calorías Quemadas</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Clases Próximas -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Próximas Clases</h5>
+                    <a th:href="@{/usuario/clases}" class="btn btn-sm btn-outline-primary">Ver todas</a>
+                </div>
+                <div class="card-body">
+                    <div th:if="${#lists.isEmpty(clasesProximas)}" class="text-center py-4">
+                        <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
+                        <p class="text-muted mt-2">No tienes clases programadas</p>
+                        <a th:href="@{/usuario/clases}" class="btn btn-primary">Explorar Clases</a>
+                    </div>
+                    <div th:unless="${#lists.isEmpty(clasesProximas)}">
+                        <div class="row" th:each="clase : ${clasesProximas}">
+                            <div class="col-12 mb-3">
+                                <div class="d-flex align-items-center p-3 border rounded">
+                                    <div class="me-3">
+                                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                            <i class="bi bi-calendar-event text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1" th:text="${clase.nombre}">Nombre de la Clase</h6>
+                                        <p class="text-muted mb-1" th:text="${clase.descripcion}">Descripción de la clase</p>
+                                        <small class="text-muted">
+                                            <i class="bi bi-clock me-1"></i>
+                                            <span th:text="${#dates.format(clase.fechaHora, 'dd/MM/yyyy HH:mm')}">Fecha y hora</span>
+                                            <span class="ms-3">
+                                                <i class="bi bi-geo-alt me-1"></i>
+                                                <span th:text="${clase.sede?.nombre}">Sede</span>
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <span class="badge bg-success" th:text="${clase.nivel}">Nivel</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rutinas Activas -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Mis Rutinas</h5>
+                    <a th:href="@{/usuario/rutinas}" class="btn btn-sm btn-outline-primary">Ver todas</a>
+                </div>
+                <div class="card-body">
+                    <div th:if="${#lists.isEmpty(rutinasActivas)}" class="text-center py-4">
+                        <i class="bi bi-list-check text-muted" style="font-size: 2rem;"></i>
+                        <p class="text-muted mt-2 mb-0">No tienes rutinas activas</p>
+                    </div>
+                    <div th:unless="${#lists.isEmpty(rutinasActivas)}">
+                        <div class="mb-3" th:each="rutina : ${rutinasActivas}">
+                            <div class="d-flex align-items-center p-2 border rounded">
+                                <div class="me-2">
+                                    <i class="bi bi-activity text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0" th:text="${rutina.nombre}">Rutina</h6>
+                                    <small class="text-muted" th:text="${rutina.objetivo}">Objetivo</small>
+                                </div>
+                                <div>
+                                    <span class="badge bg-primary" th:text="${rutina.nivel}">Nivel</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accesos Rápidos -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Accesos Rápidos</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a th:href="@{/usuario/plan-alimentacion}" class="btn btn-outline-primary">
+                            <i class="bi bi-apple me-2"></i>Plan de Alimentación
+                        </a>
+                        <a th:href="@{/usuario/perfil}" class="btn btn-outline-primary">
+                            <i class="bi bi-person me-2"></i>Mi Perfil
+                        </a>
+                        <a th:href="@{/planes}" class="btn btn-outline-primary">
+                            <i class="bi bi-card-list me-2"></i>Explorar Planes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

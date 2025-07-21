@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{fragments/header :: head}"></head>
+
+<body class="bg-dark text-white">
+    
+    <!-- Navbar Admin -->
+    <nav th:replace="~{fragments/header :: navbar-admin}"></nav>
+    
+    <!-- Contenido principal -->
+    <main class="container-fluid mt-4">
+        <div class="row">
+            <!-- Sidebar Admin -->
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <div class="nav flex-column nav-pills">
+                        <a class="nav-link" th:href="@{/admin}" th:classappend="${activePage == 'dashboard'} ? 'active' : ''">
+                            <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                        </a>
+                        
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Gestión de Usuarios</span>
+                        </h6>
+                        <a class="nav-link" th:href="@{/admin/usuarios}" th:classappend="${activePage == 'usuarios'} ? 'active' : ''">
+                            <i class="bi bi-people me-2"></i>Usuarios
+                        </a>
+                        <a class="nav-link" th:href="@{/admin/empleados}" th:classappend="${activePage == 'empleados'} ? 'active' : ''">
+                            <i class="bi bi-person-badge me-2"></i>Empleados
+                        </a>
+                        
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Servicios</span>
+                        </h6>
+                        <a class="nav-link" th:href="@{/admin/planes}" th:classappend="${activePage == 'planes'} ? 'active' : ''">
+                            <i class="bi bi-card-list me-2"></i>Planes
+                        </a>
+                        <a class="nav-link" th:href="@{/admin/clases}" th:classappend="${activePage == 'clases'} ? 'active' : ''">
+                            <i class="bi bi-calendar-event me-2"></i>Clases
+                        </a>
+                        <a class="nav-link" th:href="@{/admin/ejercicios}" th:classappend="${activePage == 'ejercicios'} ? 'active' : ''">
+                            <i class="bi bi-activity me-2"></i>Ejercicios
+                        </a>
+                        <a class="nav-link" th:href="@{/admin/rutinas}" th:classappend="${activePage == 'rutinas'} ? 'active' : ''">
+                            <i class="bi bi-list-check me-2"></i>Rutinas
+                        </a>
+                        
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Configuración</span>
+                        </h6>
+                        <a class="nav-link" th:href="@{/admin/sedes}" th:classappend="${activePage == 'sedes'} ? 'active' : ''">
+                            <i class="bi bi-building me-2"></i>Sedes
+                        </a>
+                        <a class="nav-link" th:href="@{/admin/ofertas}" th:classappend="${activePage == 'ofertas'} ? 'active' : ''">
+                            <i class="bi bi-percent me-2"></i>Ofertas
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido principal -->
+            <div class="col-md-9">
+                <div layout:fragment="content">
+                    <!-- El contenido específico de cada página va aquí -->
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    
+    <!-- Scripts -->
+    <div th:replace="~{fragments/header :: scripts}"></div>
+    
+    <!-- Scripts adicionales específicos de cada página -->
+    <div layout:fragment="scripts"></div>
+    
+</body>
+</html>
